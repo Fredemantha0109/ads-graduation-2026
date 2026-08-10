@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPRING ARK — Home</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Shippori+Mincho:wght@400;500;600&display=swap');
+
+:root {
+  --bg: #0c0c0e;
+  --surface: #111114;
+  --surface2: #18181d;
+  --border: #222228;
+  --border-bright: #2e2e38;
+  --accent: #a8ff78;
+  --accent-dim: #4a7a38;
+  --accent2: #78c8ff;
+  --accent3: #ffb878;
+  --accent-private: #888;
+  --text: #dddde8;
+  --text-muted: #666680;
+  --text-dim: #333344;
+  --radius: 8px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Shippori Mincho', serif;
+  font-size: 13px;
+}
+
+/* GRAIN OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.4;
+}
+
+/* LAYOUT */
+.shell {
+  display: grid;
+  grid-template-rows: 40px 1fr;
+  grid-template-columns: 200px 1fr;
+  height: 100vh;
+}
+
+/* TOP BAR */
+.topbar {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  gap: 20px;
+}
+
+.logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+}
+
+.topbar-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+
+.topbar-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.countdown {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent3);
+  letter-spacing: 0.05em;
+}
+
+.countdown strong {
+  font-size: 14px;
+}
+
+.spring-ark-link {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border: 1px solid var(--border-bright);
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.08em;
+  transition: all 0.15s;
+}
+
+.spring-ark-link:hover {
+  color: var(--accent2);
+  border-color: var(--accent2);
+}
+
+/* SIDEBAR */
+.sidebar {
+  grid-row: 2;
+  grid-column: 1;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar::-webkit-scrollbar { width: 3px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+
+.sidebar-section {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+/* TASK INPUT */
+.task-input-row {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.task-input {
+  flex: 1;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 5px 8px;
+  color: var(--text);
+  font-size: 11px;
+  font-family: 'Shippori Mincho', serif;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.task-input::placeholder { color: var(--text-dim); }
+.task-input:focus { border-color: var(--accent-dim); }
+
+.task-add {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  color: var(--accent);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  flex-shrink: 0;
+}
+
+.task-add:hover {
+  border-color: var(--accent-dim);
+  background: var(--border);
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.task-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 5px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s;
+  user-select: none;
+}
+
+.task-item:hover { background: var(--surface2); }
+
+.task-check {
+  width: 13px;
+  height: 13px;
+  border: 1px solid var(--border-bright);
+  border-radius: 3px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.task-check.done {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.task-check.done::after {
+  content: '✓';
+  font-size: 8px;
+  color: var(--bg);
+  font-family: 'DM Mono', monospace;
+}
+
+.task-text {
+  font-size: 11px;
+  line-height: 1.4;
+  color: var(--text);
+  transition: color 0.15s;
+}
+
+.task-text.done {
+  color: var(--text-dim);
+  text-decoration: line-through;
+}
+
+.task-empty {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+  padding: 4px 6px;
+}
+
+/* MAIN CONTENT */
+.content {
+  grid-row: 2;
+  grid-column: 2;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.content::-webkit-scrollbar { width: 3px; }
+.content::-webkit-scrollbar-track { background: transparent; }
+.content::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+
+/* PANELS */
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  animation: fadeIn 0.3s ease both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.panel-header {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panel-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.panel-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.panel-dot.blue { background: var(--accent2); }
+.panel-dot.orange { background: var(--accent3); }
+.panel-dot.gray { background: var(--accent-private); }
+
+.panel-body {
+  padding: 10px 12px;
+}
+
+/* LINK GRIDS */
+.link-grid {
+  display: grid;
+  gap: 6px;
+}
+
+.link-grid.daily { grid-template-columns: repeat(5, 1fr); }
+.link-grid.reference { grid-template-columns: repeat(3, 1fr); }
+.link-grid.project { grid-template-columns: repeat(3, 1fr); }
+.link-grid.private { grid-template-columns: repeat(2, 1fr); }
+
+.link-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 10px 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  text-decoration: none;
+  color: var(--text);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  min-height: 64px;
+}
+
+.link-card:hover {
+  border-color: var(--accent-dim);
+  background: var(--border);
+  transform: translateY(-1px);
+}
+
+.link-card.reference:hover { border-color: #4a78a0; }
+.link-card.private:hover { border-color: #555; }
+
+.link-icon {
+  font-size: 18px;
+  line-height: 1;
+}
+
+.link-name {
+  font-size: 10px;
+  color: var(--text-muted);
+  line-height: 1.3;
+}
+
+/* LOADING STATE */
+.loading-state {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+.spinner {
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--border-bright);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ROW LAYOUT */
+.row {
+  display: flex;
+  gap: 12px;
+}
+
+.row .panel { flex: 1; }
+
+/* NOTION API CONFIG NOTICE */
+.config-notice {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent3);
+  background: rgba(255,184,120,0.05);
+  border: 1px solid rgba(255,184,120,0.15);
+  border-radius: 6px;
+  padding: 10px 12px;
+  line-height: 1.6;
+}
+
+.config-notice a {
+  color: var(--accent2);
+}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="logo">SPRING ARK</div>
+    <div class="topbar-date" id="topbar-date">—</div>
+    <div class="topbar-right">
+      <div class="countdown">帰国まで <strong id="countdown-days">—</strong> days</div>
+      <a class="spring-ark-link" href="https://diagram-spring-ark-dashboard.surge.sh" target="_blank">↗ ARK Dashboard</a>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="sidebar-section">
+      <div class="section-label">Tasks</div>
+      <div class="task-input-row">
+        <input class="task-input" id="task-input" placeholder="タスクを追加..." />
+        <button class="task-add" id="task-add-btn">+</button>
+      </div>
+      <div class="task-list" id="task-list">
+        <div class="task-empty">タスクなし</div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="content">
+
+    <!-- DAILY -->
+    <div class="panel" style="animation-delay:0.05s">
+      <div class="panel-header">
+        <div class="panel-dot"></div>
+        <div class="panel-title">Daily</div>
+      </div>
+      <div class="panel-body">
+        <div id="daily-links" class="link-grid daily">
+          <div class="loading-state"><div class="spinner"></div>読み込み中...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REFERENCE + PRIVATE -->
+    <div class="row">
+      <div class="panel" style="animation-delay:0.1s">
+        <div class="panel-header">
+          <div class="panel-dot blue"></div>
+          <div class="panel-title">Reference</div>
+        </div>
+        <div class="panel-body">
+          <div id="reference-links" class="link-grid reference">
+            <div class="loading-state"><div class="spinner"></div>読み込み中...</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="animation-delay:0.15s; max-width: 200px;">
+        <div class="panel-header">
+          <div class="panel-dot gray"></div>
+          <div class="panel-title">Private</div>
+        </div>
+        <div class="panel-body">
+          <div id="private-links" class="link-grid private">
+            <div class="loading-state"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="panel" style="animation-delay:0.2s">
+      <div class="panel-header">
+        <div class="panel-dot orange"></div>
+        <div class="panel-title">Projects</div>
+      </div>
+      <div class="panel-body">
+        <div id="project-links" class="link-grid project">
+          <div class="loading-state"><div class="spinner"></div>読み込み中...</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+// ============================================================
+// CONFIG — Surgeにデプロイ後、NOTION_TOKENを設定する
+// ============================================================
+const CONFIG = {
+  NOTION_TOKEN: 'YOUR_NOTION_TOKEN_HERE',
+  DB_ID: '4619ff5be2c44e3aa5b5865700893c1c',
+  RETURN_DATE: '2026-07-07', // 帰国日
+};
+
+// ============================================================
+// DATE & COUNTDOWN
+// ============================================================
+function initDate() {
+  const now = new Date();
+  const days = ['日','月','火','水','木','金','土'];
+  const dateStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${days[now.getDay()]}`;
+  document.getElementById('topbar-date').textContent = dateStr;
+
+  const returnDate = new Date(CONFIG.RETURN_DATE);
+  const diff = Math.ceil((returnDate - now) / (1000 * 60 * 60 * 24));
+  document.getElementById('countdown-days').textContent = diff > 0 ? diff : 0;
+}
+
+// ============================================================
+// TASKS — localStorage
+// ============================================================
+let tasks = JSON.parse(localStorage.getItem('ark-tasks') || '[]');
+
+function saveTasks() {
+  localStorage.setItem('ark-tasks', JSON.stringify(tasks));
+}
+
+function renderTasks() {
+  const list = document.getElementById('task-list');
+  if (tasks.length === 0) {
+    list.innerHTML = '<div class="task-empty">タスクなし</div>';
+    return;
+  }
+  list.innerHTML = tasks.map((t, i) => `
+    <div class="task-item" onclick="toggleTask(${i})">
+      <div class="task-check ${t.done ? 'done' : ''}"></div>
+      <div class="task-text ${t.done ? 'done' : ''}">${t.text}</div>
+    </div>
+  `).join('');
+}
+
+function toggleTask(i) {
+  tasks[i].done = !tasks[i].done;
+  saveTasks();
+  renderTasks();
+}
+
+function addTask() {
+  const input = document.getElementById('task-input');
+  const text = input.value.trim();
+  if (!text) return;
+  tasks.push({ text, done: false });
+  input.value = '';
+  saveTasks();
+  renderTasks();
+}
+
+document.getElementById('task-add-btn').addEventListener('click', addTask);
+document.getElementById('task-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') addTask();
+});
+
+// 深夜0時を過ぎたら完了タスクをリセット
+const lastReset = localStorage.getItem('ark-task-reset-date');
+const today = new Date().toDateString();
+if (lastReset !== today) {
+  tasks = tasks.filter(t => !t.done);
+  saveTasks();
+  localStorage.setItem('ark-task-reset-date', today);
+}
+
+// ============================================================
+// NOTION LINKS
+// ============================================================
+async function loadLinks() {
+  if (CONFIG.NOTION_TOKEN === 'YOUR_NOTION_TOKEN_HERE') {
+    renderFallback();
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://api.notion.com/v1/databases/${CONFIG.DB_ID}/query`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${CONFIG.NOTION_TOKEN}`,
+        'Notion-Version': '2022-06-28',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        filter: { property: 'Active', checkbox: { equals: true } },
+        sorts: [{ property: 'Category', direction: 'ascending' }],
+      }),
+    });
+
+    const data = await res.json();
+    const links = data.results.map(page => ({
+      name: page.properties.Name.title[0]?.plain_text || '',
+      url: page.properties['URL']?.url || '#',
+      category: page.properties.Category?.select?.name || 'Reference',
+      icon: page.properties.Icon?.rich_text[0]?.plain_text || '📄',
+    }));
+
+    renderLinks(links);
+  } catch (err) {
+    console.error(err);
+    renderFallback();
+  }
+}
+
+function renderLinks(links) {
+  const byCategory = { Daily: [], Reference: [], Project: [], Private: [] };
+  links.forEach(l => {
+    if (byCategory[l.category]) byCategory[l.category].push(l);
+  });
+
+  renderGrid('daily-links', byCategory.Daily, 'daily');
+  renderGrid('reference-links', byCategory.Reference, 'reference');
+  renderGrid('project-links', byCategory.Project, 'project');
+  renderGrid('private-links', byCategory.Private, 'private');
+}
+
+function renderGrid(id, links, cls) {
+  const el = document.getElementById(id);
+  if (!links.length) {
+    el.innerHTML = '<div class="task-empty">なし</div>';
+    return;
+  }
+  el.innerHTML = links.map(l => `
+    <a class="link-card ${cls}" href="${l.url}" target="_blank">
+      <span class="link-icon">${l.icon}</span>
+      <span class="link-name">${l.name}</span>
+    </a>
+  `).join('');
+}
+
+// Notion tokenが未設定の場合のフォールバック表示
+function renderFallback() {
+  const fallbackData = {
+    Daily: [
+      { name: 'タスク管理', icon: '📋', url: 'https://www.notion.so/1f254a04b9f245f1b0a56bb500406bca' },
+      { name: 'ジャーナリング', icon: '📓', url: 'https://www.notion.so/8d26fa9d78bf41ba80521c3617d6a5ae' },
+      { name: 'トレーニング', icon: '💪', url: 'https://www.notion.so/7d5814c288594f5ea76ee7bfc37c6f63' },
+      { name: 'Spring Ark Daily Log', icon: '🌱', url: 'https://www.notion.so/33fe165e5f8a80cfbcfded77446f920b' },
+      { name: '英語アクション', icon: '🌐', url: 'https://www.notion.so/2dce165e5f8a80f483f6e3a76794319b' },
+    ],
+    Reference: [
+      { name: 'Zettelkasten', icon: '🗂️', url: 'https://www.notion.so/663512dec5b14fe2ac2c57311887c0bc' },
+      { name: 'English Reuse System', icon: '🔁', url: 'https://www.notion.so/e99c8681f29747e9880922ca1080d8ca' },
+      { name: 'Life Ark', icon: '🧭', url: 'https://www.notion.so/366e165e5f8a813ab6b8e6b11aa62b1e' },
+    ],
+    Project: [],
+    Private: [
+      { name: 'Family', icon: '🏠', url: 'https://www.notion.so/51cc5a64f1d74f0196347987158f0a45' },
+      { name: 'Pass', icon: '🔑', url: 'https://www.notion.so/d0f30a312b77424cb1fad0b5ffaea5fd' },
+    ],
+  };
+
+  renderLinks(Object.entries(fallbackData).flatMap(([category, links]) =>
+    links.map(l => ({ ...l, category }))
+  ));
+}
+
+// ============================================================
+// INIT
+// ============================================================
+initDate();
+renderTasks();
+loadLinks();
+</script>
+
+</body>
+</html>
