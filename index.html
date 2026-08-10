@@ -3,676 +3,467 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SPRING ARK — Home</title>
+<title>卒業制作 企画｜会計システムのブラックボックスを開ける</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Shippori+Mincho:wght@400;500;600&display=swap');
+  :root{
+    --ink:#12161c; --ink-2:#3c4655; --ink-3:#6b7686;
+    --line:#dfe4ea; --bg:#f4f6f8; --card:#ffffff;
+    --accent:#1a56db; --accent-soft:#e8effc;
+    --warn:#b42318; --warn-soft:#fdecea;
+    --ok:#0a7c53; --ok-soft:#e3f5ed;
+    --amber:#8a5a00; --amber-soft:#fff8e6; --amber-line:#f0d79a;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.65;
+    -webkit-font-smoothing:antialiased; padding:28px 20px 60px;
+  }
+  .wrap{max-width:1180px;margin:0 auto;}
 
-:root {
-  --bg: #0c0c0e;
-  --surface: #111114;
-  --surface2: #18181d;
-  --border: #222228;
-  --border-bright: #2e2e38;
-  --accent: #a8ff78;
-  --accent-dim: #4a7a38;
-  --accent2: #78c8ff;
-  --accent3: #ffb878;
-  --accent-private: #888;
-  --text: #dddde8;
-  --text-muted: #666680;
-  --text-dim: #333344;
-  --radius: 8px;
-}
+  header{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:24px 28px; margin-bottom:16px; border-left:5px solid var(--accent);
+  }
+  .eyebrow{font-size:12px;letter-spacing:.14em;color:var(--ink-3);font-weight:700;margin-bottom:8px;}
+  h1{font-size:29px;line-height:1.35;letter-spacing:-.01em;}
+  h1 .sub{display:block;font-size:15.5px;font-weight:600;color:var(--accent);margin-top:8px;letter-spacing:0;line-height:1.5;}
+  .byline{font-size:13px;color:var(--ink-3);border-top:1px solid var(--line);padding-top:10px;margin-top:14px;}
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+  .grid{display:grid;gap:14px;}
+  .g2{grid-template-columns:1fr 1fr;}
+  .g3{grid-template-columns:repeat(3,1fr);}
+  .g4{grid-template-columns:repeat(4,1fr);}
+  @media (max-width:900px){.g2,.g3,.g4{grid-template-columns:1fr;}}
 
-html, body {
-  height: 100%;
-  overflow: hidden;
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Shippori Mincho', serif;
-  font-size: 13px;
-}
+  section{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:22px 24px; margin-bottom:16px;
+  }
+  .sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+  .num{font-size:12px;font-weight:800;letter-spacing:.08em;background:var(--accent);color:#fff;padding:3px 9px;border-radius:5px;flex-shrink:0;}
+  h2{font-size:19px;letter-spacing:-.01em;}
+  .sec-note{font-size:12px;color:var(--ink-3);margin-left:auto;font-weight:600;}
 
-/* GRAIN OVERLAY */
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.4;
-}
+  .card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:15px 17px;}
+  .card h3{font-size:15px;margin-bottom:6px;}
+  .card p{font-size:13.5px;color:var(--ink-2);}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:8px;background:var(--accent-soft);color:var(--accent);}
 
-/* LAYOUT */
-.shell {
-  display: grid;
-  grid-template-rows: 40px 1fr;
-  grid-template-columns: 200px 1fr;
-  height: 100vh;
-}
+  /* A/B split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media (max-width:900px){.split{grid-template-columns:1fr;}}
+  .ab{border-radius:10px;padding:16px 18px;border:1px solid var(--line);background:var(--bg);}
+  .ab.b{background:var(--warn-soft);border-color:#f5c9c4;}
+  .ab .ab-lbl{font-size:11px;font-weight:800;letter-spacing:.06em;margin-bottom:8px;color:var(--ink-3);}
+  .ab.b .ab-lbl{color:var(--warn);}
+  .ab h3{font-size:16px;margin-bottom:8px;}
+  .ab.b h3{color:#7a1a13;}
+  .ab ul{list-style:none;margin-bottom:10px;}
+  .ab li{font-size:13px;color:var(--ink-2);padding:3px 0 3px 15px;position:relative;}
+  .ab li::before{content:"";position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--ink-3);}
+  .ab.b li{color:#8a3b33;}
+  .ab.b li::before{background:var(--warn);}
+  .ab .verdict{font-size:12.5px;font-weight:700;padding-top:9px;border-top:1px dashed #c9cfd8;}
+  .ab.b .verdict{border-top-color:#e8a9a1;color:#7a1a13;}
 
-/* TOP BAR */
-.topbar {
-  grid-column: 1 / -1;
-  grid-row: 1;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  gap: 20px;
-}
+  /* causes */
+  .cause{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;border-top:3px solid var(--warn);}
+  .cause .cn{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.06em;margin-bottom:5px;}
+  .cause h3{font-size:14px;margin-bottom:5px;line-height:1.45;}
+  .cause p{font-size:12.5px;color:var(--ink-2);line-height:1.6;}
 
-.logo {
-  font-family: 'DM Mono', monospace;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  color: var(--accent);
-}
+  .blackbox{
+    margin-top:14px;background:#12161c;border-radius:10px;padding:16px 22px;text-align:center;
+  }
+  .blackbox p{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.01em;}
+  .blackbox span{display:block;font-size:12.5px;font-weight:500;color:#9aa5b4;margin-top:6px;}
 
-.topbar-date {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--text-muted);
-}
+  /* symptom → cause */
+  .symptom{background:var(--warn-soft);border:1px solid #f5c9c4;border-radius:10px;padding:17px 20px;}
+  .symptom .sy-lbl{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.08em;margin-bottom:8px;}
+  .symptom .sy-lead{font-size:14.5px;color:#7a1a13;line-height:1.7;margin-bottom:13px;}
+  .sy-items{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:13px;}
+  @media (max-width:900px){.sy-items{grid-template-columns:1fr;}}
+  .sy-item{
+    background:#fff;border:1px solid #eec4be;border-radius:8px;padding:11px 14px;
+    font-size:13.5px;font-weight:700;color:#8a3b33;text-align:center;line-height:1.45;
+  }
+  .sy-item.hot{background:var(--warn);border-color:var(--warn);color:#fff;}
+  .sy-deep{
+    background:#fff;border-left:3px solid var(--warn);border-radius:0 8px 8px 0;
+    padding:12px 16px;font-size:13.5px;color:#7a1a13;line-height:1.7;
+  }
 
-.topbar-right {
-  margin-left: auto;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
+  .drill{
+    margin:14px 0;background:var(--card);border:1px solid var(--line);border-radius:10px;
+    padding:16px 22px;text-align:center;position:relative;
+  }
+  .drill::before{
+    content:"▼";position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+    color:var(--warn);font-size:15px;background:var(--card);padding:0 8px;
+  }
+  .drill .dr-q{font-size:13px;font-weight:800;color:var(--ink-3);letter-spacing:.04em;margin-bottom:7px;}
+  .drill .dr-a{font-size:15px;color:var(--ink-2);line-height:1.7;}
+  .drill .dr-a strong{color:var(--ink);}
 
-.countdown {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--accent3);
-  letter-spacing: 0.05em;
-}
+  .cause-head{
+    font-size:13px;font-weight:800;color:var(--ink-3);letter-spacing:.04em;
+    margin-bottom:11px;padding-left:2px;
+  }
 
-.countdown strong {
-  font-size: 14px;
-}
+  /* then / now */
+  .thennow{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;}
+  @media (max-width:900px){.thennow{grid-template-columns:1fr;}}
+  .tn{border-radius:10px;padding:16px 18px;border:1px solid var(--line);}
+  .tn.then{background:var(--warn-soft);border-color:#f5c9c4;}
+  .tn.now{background:var(--ok-soft);border-color:#bfe5d5;}
+  .tn .tn-lbl{font-size:11px;font-weight:800;letter-spacing:.06em;margin-bottom:8px;}
+  .tn.then .tn-lbl{color:var(--warn);}
+  .tn.now .tn-lbl{color:var(--ok);}
+  .tn p{font-size:13.5px;color:var(--ink-2);}
+  .tn.then p{color:#8a3b33;}
+  .tn .punch{font-size:14.5px;font-weight:700;margin-top:8px;}
+  .tn.then .punch{color:#7a1a13;}
+  .tn.now .punch{color:#06603f;}
+  .tn-arrow{display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--accent);min-width:56px;}
+  @media (max-width:900px){.tn-arrow{transform:rotate(90deg);min-height:36px;}}
 
-.spring-ark-link {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  color: var(--text-muted);
-  text-decoration: none;
-  border: 1px solid var(--border-bright);
-  padding: 3px 8px;
-  border-radius: 4px;
-  letter-spacing: 0.08em;
-  transition: all 0.15s;
-}
+  .slim{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;}
+  @media (max-width:1000px){.slim{grid-template-columns:1fr;}}
+  .sl{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:15px 17px;}
+  .sl.mid{background:var(--accent-soft);border-color:#c3d6f7;}
+  .sl .sl-n{font-size:13px;font-weight:800;margin-bottom:6px;color:var(--ink);}
+  .sl.mid .sl-n{color:var(--accent);}
+  .sl p{font-size:12.5px;color:var(--ink-2);line-height:1.6;}
+  .sl-arrow{display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:18px;}
+  @media (max-width:1000px){.sl-arrow{transform:rotate(90deg);}}
 
-.spring-ark-link:hover {
-  color: var(--accent2);
-  border-color: var(--accent2);
-}
+  /* roles */
+  .roles{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;}
+  @media (max-width:1000px){.roles{grid-template-columns:1fr;}}
+  .role{border-radius:10px;padding:16px 18px;border:1px solid var(--line);display:flex;flex-direction:column;}
+  .role.design{background:var(--ok-soft);border-color:#bfe5d5;}
+  .role.exec{background:#eef1f5;}
+  .role .r-lbl{font-size:11px;font-weight:800;letter-spacing:.06em;margin-bottom:7px;}
+  .role.design .r-lbl{color:var(--ok);}
+  .role.exec .r-lbl{color:var(--ink-3);}
+  .role h3{font-size:15px;margin-bottom:10px;line-height:1.45;}
+  .role ul{list-style:none;margin-bottom:10px;}
+  .role li{font-size:13px;color:var(--ink-2);padding:4px 0 4px 15px;position:relative;line-height:1.6;}
+  .role li::before{content:"";position:absolute;left:0;top:12px;width:5px;height:5px;border-radius:50%;background:var(--ok);}
+  .role .seal{
+    margin-top:auto;background:var(--ok);color:#fff;font-size:12.5px;font-weight:800;
+    padding:8px 12px;border-radius:6px;text-align:center;
+  }
+  .role .seal.exec-seal{background:var(--ink-2);}
+  .pat{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start;margin-bottom:9px;}
+  .pat .pn{
+    font-size:10.5px;font-weight:800;background:#fff;border:1px solid var(--line);
+    color:var(--ink-3);padding:4px 8px;border-radius:5px;white-space:nowrap;
+  }
+  .pat div{font-size:12.5px;color:var(--ink-2);line-height:1.55;}
 
-/* SIDEBAR */
-.sidebar {
-  grid-row: 2;
-  grid-column: 1;
-  background: var(--surface);
-  border-right: 1px solid var(--border);
-  display: flex;
-  flex-direction: column;
-  overflow-y: auto;
-  overflow-x: hidden;
-}
+  .bridge{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:132px;gap:7px;}
+  .bridge .b-arrow{font-size:22px;color:var(--accent);line-height:1;}
+  .bridge .b-pass{
+    background:var(--accent);color:#fff;font-size:12px;font-weight:700;
+    padding:9px 12px;border-radius:6px;text-align:center;line-height:1.5;
+  }
+  .bridge .b-note{
+    background:#fff;border:1px dashed var(--accent);color:var(--accent);
+    font-size:11px;font-weight:700;padding:6px 10px;border-radius:6px;text-align:center;line-height:1.5;
+  }
+  @media (max-width:1000px){.bridge{flex-direction:row;flex-wrap:wrap;min-width:0;} .bridge .b-arrow{transform:rotate(90deg);}}
 
-.sidebar::-webkit-scrollbar { width: 3px; }
-.sidebar::-webkit-scrollbar-track { background: transparent; }
-.sidebar::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+  .rule{
+    margin-top:14px;background:var(--amber-soft);border:1px solid var(--amber-line);
+    border-radius:10px;padding:15px 20px;
+  }
+  .rule .ru-lbl{font-size:11px;font-weight:800;color:var(--amber);letter-spacing:.06em;margin-bottom:6px;}
+  .rule p{font-size:13.5px;color:#6b4700;line-height:1.7;}
 
-.sidebar-section {
-  padding: 14px 12px;
-  border-bottom: 1px solid var(--border);
-}
+  .loop{
+    margin-top:14px;background:var(--accent-soft);border:1px solid #c3d6f7;border-radius:10px;padding:15px 20px;
+  }
+  .loop .l-lbl{font-size:11px;font-weight:800;color:var(--accent);letter-spacing:.06em;margin-bottom:8px;}
+  .loop p{font-size:13.5px;color:var(--ink-2);}
+  .loop .chain{font-size:13.5px;font-weight:700;color:var(--accent);margin-top:8px;line-height:1.9;}
 
-.section-label {
-  font-family: 'DM Mono', monospace;
-  font-size: 8px;
-  letter-spacing: 0.2em;
-  color: var(--text-dim);
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
+  /* layer3 */
+  .layer3{
+    background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
+    display:flex;flex-direction:column;border-top:3px solid var(--ink-3);
+  }
+  .layer3.hot{background:var(--accent-soft);border-color:#c3d6f7;border-top-color:var(--accent);}
+  .layer3 .l3-n{font-size:11px;font-weight:800;color:var(--ink-3);letter-spacing:.06em;margin-bottom:5px;}
+  .layer3.hot .l3-n{color:var(--accent);}
+  .layer3 h3{font-size:15.5px;margin-bottom:8px;}
+  .layer3 p{font-size:13px;color:var(--ink-2);line-height:1.65;margin-bottom:12px;}
+  .layer3 .l3-tag{
+    margin-top:auto;font-size:11.5px;font-weight:800;text-align:center;
+    background:#fff;border:1px solid var(--line);color:var(--ink-3);
+    padding:6px 10px;border-radius:5px;
+  }
+  .layer3 .l3-tag.hot-tag{background:var(--accent);border-color:var(--accent);color:#fff;}
 
-/* TASK INPUT */
-.task-input-row {
-  display: flex;
-  gap: 4px;
-  margin-bottom: 8px;
-}
+  .formula{
+    background:#12161c;color:#fff;border-radius:10px;padding:14px 20px;text-align:center;
+    font-size:15px;font-weight:700;letter-spacing:.01em;margin-bottom:16px;
+  }
+  .formula strong{color:#8fb8ff;}
 
-.task-input {
-  flex: 1;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  padding: 5px 8px;
-  color: var(--text);
-  font-size: 11px;
-  font-family: 'Shippori Mincho', serif;
-  outline: none;
-  transition: border-color 0.15s;
-}
+  .why{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:10px;padding:16px 20px;}
+  .why .w-lbl{font-size:12px;font-weight:800;color:var(--amber);letter-spacing:.06em;margin-bottom:12px;}
+  .wr{background:#fff;border:1px solid var(--amber-line);border-radius:8px;padding:13px 15px;}
+  .wr h4{font-size:13.5px;color:#6b4700;margin-bottom:5px;line-height:1.45;}
+  .wr p{font-size:12.5px;color:#7a5510;line-height:1.6;}
 
-.task-input::placeholder { color: var(--text-dim); }
-.task-input:focus { border-color: var(--accent-dim); }
+  /* asks */
+  .ask{background:#12161c;border-color:#12161c;}
+  .ask .sec-head{border-bottom-color:#2b333f;}
+  .ask h2{color:#fff;}
+  .ask .num{background:#fff;color:#12161c;}
+  .ask .sec-note{color:#7a8698;}
+  .ask .q{background:#1c222b;border:1px solid #2b333f;border-radius:10px;padding:15px 18px;}
+  .ask .q .qn{font-size:11px;font-weight:800;color:#7fa4f0;letter-spacing:.06em;margin-bottom:6px;}
+  .ask .q h3{font-size:14.5px;color:#fff;margin-bottom:6px;line-height:1.5;}
+  .ask .q p{font-size:12.5px;color:#a8b3c2;line-height:1.6;}
 
-.task-add {
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  width: 26px;
-  height: 26px;
-  cursor: pointer;
-  color: var(--accent);
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s;
-  flex-shrink: 0;
-}
-
-.task-add:hover {
-  border-color: var(--accent-dim);
-  background: var(--border);
-}
-
-.task-list {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.task-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 6px;
-  padding: 5px 6px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.1s;
-  user-select: none;
-}
-
-.task-item:hover { background: var(--surface2); }
-
-.task-check {
-  width: 13px;
-  height: 13px;
-  border: 1px solid var(--border-bright);
-  border-radius: 3px;
-  flex-shrink: 0;
-  margin-top: 1px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s;
-}
-
-.task-check.done {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-.task-check.done::after {
-  content: '✓';
-  font-size: 8px;
-  color: var(--bg);
-  font-family: 'DM Mono', monospace;
-}
-
-.task-text {
-  font-size: 11px;
-  line-height: 1.4;
-  color: var(--text);
-  transition: color 0.15s;
-}
-
-.task-text.done {
-  color: var(--text-dim);
-  text-decoration: line-through;
-}
-
-.task-empty {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--text-dim);
-  padding: 4px 6px;
-}
-
-/* MAIN CONTENT */
-.content {
-  grid-row: 2;
-  grid-column: 2;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding: 14px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.content::-webkit-scrollbar { width: 3px; }
-.content::-webkit-scrollbar-track { background: transparent; }
-.content::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
-
-/* PANELS */
-.panel {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  animation: fadeIn 0.3s ease both;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.panel-header {
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.panel-title {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.15em;
-  color: var(--text-muted);
-  text-transform: uppercase;
-}
-
-.panel-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
-.panel-dot.blue { background: var(--accent2); }
-.panel-dot.orange { background: var(--accent3); }
-.panel-dot.gray { background: var(--accent-private); }
-
-.panel-body {
-  padding: 10px 12px;
-}
-
-/* LINK GRIDS */
-.link-grid {
-  display: grid;
-  gap: 6px;
-}
-
-.link-grid.daily { grid-template-columns: repeat(5, 1fr); }
-.link-grid.reference { grid-template-columns: repeat(3, 1fr); }
-.link-grid.project { grid-template-columns: repeat(3, 1fr); }
-.link-grid.private { grid-template-columns: repeat(2, 1fr); }
-
-.link-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  padding: 10px 8px;
-  background: var(--surface2);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  text-decoration: none;
-  color: var(--text);
-  cursor: pointer;
-  transition: all 0.15s;
-  text-align: center;
-  min-height: 64px;
-}
-
-.link-card:hover {
-  border-color: var(--accent-dim);
-  background: var(--border);
-  transform: translateY(-1px);
-}
-
-.link-card.reference:hover { border-color: #4a78a0; }
-.link-card.private:hover { border-color: #555; }
-
-.link-icon {
-  font-size: 18px;
-  line-height: 1;
-}
-
-.link-name {
-  font-size: 10px;
-  color: var(--text-muted);
-  line-height: 1.3;
-}
-
-/* LOADING STATE */
-.loading-state {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px;
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--text-dim);
-}
-
-.spinner {
-  width: 10px;
-  height: 10px;
-  border: 1px solid var(--border-bright);
-  border-top-color: var(--accent);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-/* ROW LAYOUT */
-.row {
-  display: flex;
-  gap: 12px;
-}
-
-.row .panel { flex: 1; }
-
-/* NOTION API CONFIG NOTICE */
-.config-notice {
-  font-family: 'DM Mono', monospace;
-  font-size: 10px;
-  color: var(--accent3);
-  background: rgba(255,184,120,0.05);
-  border: 1px solid rgba(255,184,120,0.15);
-  border-radius: 6px;
-  padding: 10px 12px;
-  line-height: 1.6;
-}
-
-.config-notice a {
-  color: var(--accent2);
-}
+  footer{text-align:center;font-size:12px;color:var(--ink-3);margin-top:24px;}
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<div class="shell">
-
-  <!-- TOP BAR -->
-  <header class="topbar">
-    <div class="logo">SPRING ARK</div>
-    <div class="topbar-date" id="topbar-date">—</div>
-    <div class="topbar-right">
-      <div class="countdown">帰国まで <strong id="countdown-days">—</strong> days</div>
-      <a class="spring-ark-link" href="https://diagram-spring-ark-dashboard.surge.sh" target="_blank">↗ ARK Dashboard</a>
-    </div>
+  <header>
+    <div class="eyebrow">AI DRIVEN SCHOOL ／ 卒業制作 企画</div>
+    <h1>
+      会計システムのブラックボックスを、経理の人間が自分で開ける
+      <span class="sub">情シスの手を借りずに、20年分の「なぜこれが残っているのか」を解く。<br>
+      しかも、自分のAIを持ち込めない現場で。</span>
+    </h1>
+    <div class="byline">Yuichiro（公認会計士・独立コンサルタント）／ 第6回グループセッション</div>
   </header>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-
-    <div class="sidebar-section">
-      <div class="section-label">Tasks</div>
-      <div class="task-input-row">
-        <input class="task-input" id="task-input" placeholder="タスクを追加..." />
-        <button class="task-add" id="task-add-btn">+</button>
+  
+  <section>
+    <div class="sec-head">
+      <span class="num">01</span>
+      <h2>まず、私がどんな仕事をしているか</h2>
+      <span class="sec-note">前提</span>
+    </div>
+    <div class="grid g3">
+      <div class="card">
+        <span class="tag">立場</span>
+        <h3>独立した公認会計士</h3>
+        <p>業務委託で、複数のクライアントを支援しています。</p>
       </div>
-      <div class="task-list" id="task-list">
-        <div class="task-empty">タスクなし</div>
+      <div class="card">
+        <span class="tag">支援内容</span>
+        <h3>中小企業の経理・IPO準備</h3>
+        <p>月次決算、IPO準備、経理体制づくり。「自分たちで回る組織」を作るのがゴールです。</p>
+      </div>
+      <div class="card">
+        <span class="tag">働き方</span>
+        <h3>会社の中に入って作業する</h3>
+        <p>先方のPC、先方の会計システム、先方のExcel。ここが今日の話の急所です。</p>
+      </div>
+    </div>
+  </section>
+
+  
+  <section>
+    <div class="sec-head">
+      <span class="num">02</span>
+      <h2>消したい面倒 ── 経理のレビューと検証が、とにかく煩雑</h2>
+      <span class="sec-note">症状 → 原因 → 根本原因</span>
+    </div>
+
+    <div class="symptom">
+      <div class="sy-lbl">症状</div>
+      <p class="sy-lead"><strong>経理業務のレビュー・検証作業が煩雑。</strong>これは<strong>内部の経理担当がやっても、外部の専門家である私がやっても、まったく同じ</strong>です。</p>
+      <div class="sy-items">
+        <div class="sy-item">数字が合っているかを確認する</div>
+        <div class="sy-item">異常な残高がないかを確認する</div>
+        <div class="sy-item hot">なぜこの残高が残っているのかを突き止める</div>
+      </div>
+      <div class="sy-deep">
+        <strong>とくに重いのが最後です。</strong>補助科目を明細まで深掘りして、過去の履歴を全部たどる。相殺されて消えていく中に、<strong>2015年の1件だけが、なぜか残っている。</strong>それを見つけるまでに、何十往復もします。
       </div>
     </div>
 
-  </aside>
+    <div class="drill">
+      <div class="dr-q">なぜ、こんなに時間がかかるのか</div>
+      <div class="dr-a">一つひとつの作業が難しいからではありません。<br>
+      <strong>見に行く先 ── 会計システムの中が、そもそも整理されていないからです。</strong></div>
+    </div>
 
-  <!-- MAIN CONTENT -->
-  <main class="content">
-
-    <!-- DAILY -->
-    <div class="panel" style="animation-delay:0.05s">
-      <div class="panel-header">
-        <div class="panel-dot"></div>
-        <div class="panel-title">Daily</div>
+    <div class="cause-head">なぜ、整理されていないのか ── 3つが積み重なっている</div>
+    <div class="grid g3">
+      <div class="cause">
+        <div class="cn">原因 1</div>
+        <h3>過去が、そのまま堆積している</h3>
+        <p>会計システムはどの会社にも昔からあります。手入力の時代からのデータがそのまま残り、さらに<strong>合併のたびに、時間がない中で複数システムを無理やり統合</strong>。不要データが残ったまま集約され、取引先情報がぐちゃぐちゃになる。</p>
       </div>
-      <div class="panel-body">
-        <div id="daily-links" class="link-grid daily">
-          <div class="loading-state"><div class="spinner"></div>読み込み中...</div>
-        </div>
+      <div class="cause">
+        <div class="cn">原因 2</div>
+        <h3>掃除する人がいない</h3>
+        <p>経理は日々のルーティンに追われていて、データを整理する時間を取れない。誰も手を付けないまま、堆積だけが進んでいく。</p>
+      </div>
+      <div class="cause">
+        <div class="cn">原因 3</div>
+        <h3>入口だけDXした</h3>
+        <p>請求書の自動読込、SaaS連携。効率化はした。でも<strong>整っていない土台にそのまま繋いだ</strong>ので、複雑さが増して手が付けられなくなった。</p>
+      </div>
+    </div>
+    <div class="blackbox">
+      <p>会計システムだけが整理されていないから、他のシステムと突合できない</p>
+      <span>DXが騒がれた時代からずっと、ここが詰まっていました。</span>
+    </div>
+  </section>
+
+  
+  <section>
+    <div class="sec-head">
+      <span class="num">03</span>
+      <h2>なぜ、今まで誰も掃除できなかったのか</h2>
+      <span class="sec-note">そして、なぜ今ならできるのか</span>
+    </div>
+    <div class="thennow">
+      <div class="tn then">
+        <div class="tn-lbl">これまで</div>
+        <p>本気で中をきれいにしようとすると、情報システム室の協力が要りました。でも情シスに会計が分かる人がいない。会計が分かる経理には、システムを触る力がない。</p>
+        <p class="punch">だから、途中で頓挫していた。</p>
+      </div>
+      <div class="tn-arrow">▶</div>
+      <div class="tn now">
+        <div class="tn-lbl">いま</div>
+        <p>AIが来ました。<strong>経理側の人間が、自分でシステムの中身を解析して、整理のルールを設計して、変えられる。</strong>情シスを待たなくていい。</p>
+        <p class="punch">会計が分かる人間が、はじめて自分で開けられる。</p>
+      </div>
+    </div>
+    <div class="loop" style="background:var(--amber-soft);border-color:var(--amber-line);">
+      <div class="l-lbl" style="color:var(--amber);">ただし、私の現場にはもう一枚の壁がある</div>
+      <p style="color:#6b4700;">クライアントの実データは持ち出せない。そして<strong>自分のAIが使えない</strong>。先方が用意したAIはあっても、Copilotだけ・制限つきが普通。半年かけて組み上げてきたスキルとノウハウが、一番使いたい場所で0%になります。</p>
+    </div>
+  </section>
+
+  
+  <section>
+    <div class="sec-head">
+      <span class="num">04</span>
+      <h2>作るもの ── 「設計する側」の中身を作り込む</h2>
+      <span class="sec-note">これが卒業制作の本体</span>
+    </div>
+
+    <p style="font-size:14px;color:var(--ink-2);margin-bottom:16px;">
+      作るのは、<strong>私の手元で動く「設計する側」</strong> ── 何を調べるべきかを考えて、調査の指示を組み立てる部分です。<br>
+      ここがただのAIなら、前提を貼り付けて指示を書かせているだけで、作ったものが何もありません。だから
+      <strong>普通のAIが持っていなくて、これだけが持っているもの</strong>を3層で作り込みます。
+    </p>
+
+    <div class="grid g3" style="margin-bottom:16px;">
+      <div class="layer3">
+        <div class="l3-n">第1層</div>
+        <h3>汚れのカタログ</h3>
+        <p>会計システムに何が起きうるかの一覧。滞留残高／マイナス残高／取引先の表記ゆれ・重複／休眠補助科目／科目違いの入り繰り／消込漏れ／二重計上／移行時の残骸／合併時の統合残骸……</p>
+        <div class="l3-tag">どの会社でも使える資産</div>
+      </div>
+      <div class="layer3 hot">
+        <div class="l3-n">第2層</div>
+        <h3>1項目ごとの「調べ方の型」</h3>
+        <p><strong>ここが本体です。</strong>症状／なぜ起きるか／判別の順番／見分けるポイント／環境別の実行指示。監査、IPO準備、合併。<strong>実際に中を見てきた現場で無意識にやっている手順</strong>を、外に出して型にします。</p>
+        <div class="l3-tag hot-tag">現場を見てきたから書ける</div>
+      </div>
+      <div class="layer3">
+        <div class="l3-n">第3層</div>
+        <h3>会社プロファイル</h3>
+        <p>その会社の勘定科目体系、補助科目の付け方、システム移行の履歴、既知の癖、これまでの調査結果。毎回ゼロから説明しなくて済むようにする。</p>
+        <div class="l3-tag">その会社の文脈</div>
       </div>
     </div>
 
-    <!-- REFERENCE + PRIVATE -->
-    <div class="row">
-      <div class="panel" style="animation-delay:0.1s">
-        <div class="panel-header">
-          <div class="panel-dot blue"></div>
-          <div class="panel-title">Reference</div>
-        </div>
-        <div class="panel-body">
-          <div id="reference-links" class="link-grid reference">
-            <div class="loading-state"><div class="spinner"></div>読み込み中...</div>
-          </div>
-        </div>
-      </div>
+    <div class="formula">
+      第1層 × 第2層 × 第3層 　▶　 <strong>その会社・その環境で通る調査指示</strong>
+    </div>
 
-      <div class="panel" style="animation-delay:0.15s; max-width: 200px;">
-        <div class="panel-header">
-          <div class="panel-dot gray"></div>
-          <div class="panel-title">Private</div>
+    <div class="why">
+      <div class="w-lbl">なぜ、Webアプリでなければならないのか</div>
+      <div class="grid g2">
+        <div class="wr">
+          <h4>1. 会話ではなく、何ヶ月も続くプロジェクトだから</h4>
+          <p>検出される項目は100件単位。1件ずつ原因を特定し、方針を決め、仕訳を起こして潰していく。<strong>その進行管理はチャットでは破綻します。</strong></p>
         </div>
-        <div class="panel-body">
-          <div id="private-links" class="link-grid private">
-            <div class="loading-state"><div class="spinner"></div></div>
-          </div>
+        <div class="wr">
+          <h4>2. 型が育つから</h4>
+          <p>ある会社で見つけたパターンは、次の会社でも効きます。<strong>使うほど型が厚くなる。</strong>その蓄積が溜まる器がないと、毎回一度きりの調査で終わってしまう。</p>
+        </div>
+        <div class="wr">
+          <h4>3. クライアントに置いて帰るから</h4>
+          <p>私の仕事は「自分たちで回る組織を作ること」。<strong>チャット履歴は渡せませんが、アプリは渡せます。</strong>置いて帰れて初めて完成です。</p>
+        </div>
+        <div class="wr">
+          <h4>4. 横断で見たいから</h4>
+          <p>会社 × 汚れの種類 × 進捗を俯瞰して、<strong>次にどこを潰すべきかを判断する。</strong>一覧性はチャットで代替できません。</p>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- PROJECTS -->
-    <div class="panel" style="animation-delay:0.2s">
-      <div class="panel-header">
-        <div class="panel-dot orange"></div>
-        <div class="panel-title">Projects</div>
+  
+  <section>
+    <div class="sec-head">
+      <span class="num">05</span>
+      <h2>補足 ── 実データに触れずに、どう回すのか</h2>
+      <span class="sec-note">セキュリティの担保</span>
+    </div>
+    <div class="slim">
+      <div class="sl">
+        <div class="sl-n">設計するのは、自分のAI</div>
+        <p>会社ごとの前提を持ち、何を調べるか仮説を立て、指示を組み立てる。<strong>実データは一度も見ない。</strong></p>
       </div>
-      <div class="panel-body">
-        <div id="project-links" class="link-grid project">
-          <div class="loading-state"><div class="spinner"></div>読み込み中...</div>
-        </div>
+      <div class="sl-arrow">▶</div>
+      <div class="sl mid">
+        <div class="sl-n">越境するのは、文字列だけ</div>
+        <p>コードか、プロンプトか。環境によって種類が変わるだけ。<strong>データは越境しない。</strong></p>
+      </div>
+      <div class="sl-arrow">▶</div>
+      <div class="sl">
+        <div class="sl-n">実行するのは、会社側</div>
+        <p>Excelのマクロ／Power Query／数式、Copilot、会社のClaudeアドイン。<strong>実データは環境の外に出ない。</strong></p>
       </div>
     </div>
+    <div class="rule">
+      <div class="ru-lbl">この設計のルール</div>
+      <p><strong>実データに触れていいのは、会社が許可したAI（と会社のExcel）だけ。私のAIが見るのは、構造とルールだけ。</strong><br>
+      つまり「自分のAIが0%になる」のではなく、<strong>設計側に回すことで100%活かす</strong>。</p>
+    </div>
+  </section>
 
-  </main>
+  
+  <section class="ask">
+    <div class="sec-head">
+      <span class="num">06</span>
+      <h2>正直、まだ迷っています</h2>
+      <span class="sec-note">ここを一緒に考えてほしい</span>
+    </div>
+    <div class="grid g2">
+      <div class="q">
+        <div class="qn">迷い 1｜深さか、広さか</div>
+        <h3>1ヶ月で、カタログを広く浅く作るか、3項目を1社で回しきるか</h3>
+        <p>広さを取ると資産にはなるが、机上で終わる。深さを取ると実証できるが、再現性が見えない。半年の集大成として、どちらを取るべきか。</p>
+      </div>
+      <div class="q">
+        <div class="qn">迷い 2｜伝わり方</div>
+        <h3>会計に馴染みのない方から見て、この話はどこで分からなくなりましたか</h3>
+        <p>「システムの中が汚れたまま放置されている」という感覚が伝わっているかどうかを知りたいです。ここが伝わらないと、そもそも何を作っているのか分からないはずなので。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>AI Driven School 卒業制作 企画（第6回グループセッション版 / 2026年8月）</footer>
+
 </div>
-
-<script>
-// ============================================================
-// CONFIG — Surgeにデプロイ後、NOTION_TOKENを設定する
-// ============================================================
-const CONFIG = {
-  NOTION_TOKEN: 'YOUR_NOTION_TOKEN_HERE',
-  DB_ID: '4619ff5be2c44e3aa5b5865700893c1c',
-  RETURN_DATE: '2026-07-07', // 帰国日
-};
-
-// ============================================================
-// DATE & COUNTDOWN
-// ============================================================
-function initDate() {
-  const now = new Date();
-  const days = ['日','月','火','水','木','金','土'];
-  const dateStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')} ${days[now.getDay()]}`;
-  document.getElementById('topbar-date').textContent = dateStr;
-
-  const returnDate = new Date(CONFIG.RETURN_DATE);
-  const diff = Math.ceil((returnDate - now) / (1000 * 60 * 60 * 24));
-  document.getElementById('countdown-days').textContent = diff > 0 ? diff : 0;
-}
-
-// ============================================================
-// TASKS — localStorage
-// ============================================================
-let tasks = JSON.parse(localStorage.getItem('ark-tasks') || '[]');
-
-function saveTasks() {
-  localStorage.setItem('ark-tasks', JSON.stringify(tasks));
-}
-
-function renderTasks() {
-  const list = document.getElementById('task-list');
-  if (tasks.length === 0) {
-    list.innerHTML = '<div class="task-empty">タスクなし</div>';
-    return;
-  }
-  list.innerHTML = tasks.map((t, i) => `
-    <div class="task-item" onclick="toggleTask(${i})">
-      <div class="task-check ${t.done ? 'done' : ''}"></div>
-      <div class="task-text ${t.done ? 'done' : ''}">${t.text}</div>
-    </div>
-  `).join('');
-}
-
-function toggleTask(i) {
-  tasks[i].done = !tasks[i].done;
-  saveTasks();
-  renderTasks();
-}
-
-function addTask() {
-  const input = document.getElementById('task-input');
-  const text = input.value.trim();
-  if (!text) return;
-  tasks.push({ text, done: false });
-  input.value = '';
-  saveTasks();
-  renderTasks();
-}
-
-document.getElementById('task-add-btn').addEventListener('click', addTask);
-document.getElementById('task-input').addEventListener('keydown', e => {
-  if (e.key === 'Enter') addTask();
-});
-
-// 深夜0時を過ぎたら完了タスクをリセット
-const lastReset = localStorage.getItem('ark-task-reset-date');
-const today = new Date().toDateString();
-if (lastReset !== today) {
-  tasks = tasks.filter(t => !t.done);
-  saveTasks();
-  localStorage.setItem('ark-task-reset-date', today);
-}
-
-// ============================================================
-// NOTION LINKS
-// ============================================================
-async function loadLinks() {
-  if (CONFIG.NOTION_TOKEN === 'YOUR_NOTION_TOKEN_HERE') {
-    renderFallback();
-    return;
-  }
-
-  try {
-    const res = await fetch(`https://api.notion.com/v1/databases/${CONFIG.DB_ID}/query`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${CONFIG.NOTION_TOKEN}`,
-        'Notion-Version': '2022-06-28',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        filter: { property: 'Active', checkbox: { equals: true } },
-        sorts: [{ property: 'Category', direction: 'ascending' }],
-      }),
-    });
-
-    const data = await res.json();
-    const links = data.results.map(page => ({
-      name: page.properties.Name.title[0]?.plain_text || '',
-      url: page.properties['URL']?.url || '#',
-      category: page.properties.Category?.select?.name || 'Reference',
-      icon: page.properties.Icon?.rich_text[0]?.plain_text || '📄',
-    }));
-
-    renderLinks(links);
-  } catch (err) {
-    console.error(err);
-    renderFallback();
-  }
-}
-
-function renderLinks(links) {
-  const byCategory = { Daily: [], Reference: [], Project: [], Private: [] };
-  links.forEach(l => {
-    if (byCategory[l.category]) byCategory[l.category].push(l);
-  });
-
-  renderGrid('daily-links', byCategory.Daily, 'daily');
-  renderGrid('reference-links', byCategory.Reference, 'reference');
-  renderGrid('project-links', byCategory.Project, 'project');
-  renderGrid('private-links', byCategory.Private, 'private');
-}
-
-function renderGrid(id, links, cls) {
-  const el = document.getElementById(id);
-  if (!links.length) {
-    el.innerHTML = '<div class="task-empty">なし</div>';
-    return;
-  }
-  el.innerHTML = links.map(l => `
-    <a class="link-card ${cls}" href="${l.url}" target="_blank">
-      <span class="link-icon">${l.icon}</span>
-      <span class="link-name">${l.name}</span>
-    </a>
-  `).join('');
-}
-
-// Notion tokenが未設定の場合のフォールバック表示
-function renderFallback() {
-  const fallbackData = {
-    Daily: [
-      { name: 'タスク管理', icon: '📋', url: 'https://www.notion.so/1f254a04b9f245f1b0a56bb500406bca' },
-      { name: 'ジャーナリング', icon: '📓', url: 'https://www.notion.so/8d26fa9d78bf41ba80521c3617d6a5ae' },
-      { name: 'トレーニング', icon: '💪', url: 'https://www.notion.so/7d5814c288594f5ea76ee7bfc37c6f63' },
-      { name: 'Spring Ark Daily Log', icon: '🌱', url: 'https://www.notion.so/33fe165e5f8a80cfbcfded77446f920b' },
-      { name: '英語アクション', icon: '🌐', url: 'https://www.notion.so/2dce165e5f8a80f483f6e3a76794319b' },
-    ],
-    Reference: [
-      { name: 'Zettelkasten', icon: '🗂️', url: 'https://www.notion.so/663512dec5b14fe2ac2c57311887c0bc' },
-      { name: 'English Reuse System', icon: '🔁', url: 'https://www.notion.so/e99c8681f29747e9880922ca1080d8ca' },
-      { name: 'Life Ark', icon: '🧭', url: 'https://www.notion.so/366e165e5f8a813ab6b8e6b11aa62b1e' },
-    ],
-    Project: [],
-    Private: [
-      { name: 'Family', icon: '🏠', url: 'https://www.notion.so/51cc5a64f1d74f0196347987158f0a45' },
-      { name: 'Pass', icon: '🔑', url: 'https://www.notion.so/d0f30a312b77424cb1fad0b5ffaea5fd' },
-    ],
-  };
-
-  renderLinks(Object.entries(fallbackData).flatMap(([category, links]) =>
-    links.map(l => ({ ...l, category }))
-  ));
-}
-
-// ============================================================
-// INIT
-// ============================================================
-initDate();
-renderTasks();
-loadLinks();
-</script>
-
 </body>
 </html>
