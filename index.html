@@ -15,7 +15,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{
-    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Noto Sans JP","Meiryo",system-ui,sans-serif;
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Meiryo",system-ui,sans-serif;
     background:var(--bg); color:var(--ink); line-height:1.65;
     -webkit-font-smoothing:antialiased; padding:28px 20px 60px;
   }
@@ -50,36 +50,11 @@
   .card p{font-size:13.5px;color:var(--ink-2);}
   .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:4px;margin-bottom:8px;background:var(--accent-soft);color:var(--accent);}
 
-  /* A/B split */
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-  @media (max-width:900px){.split{grid-template-columns:1fr;}}
-  .ab{border-radius:10px;padding:16px 18px;border:1px solid var(--line);background:var(--bg);}
-  .ab.b{background:var(--warn-soft);border-color:#f5c9c4;}
-  .ab .ab-lbl{font-size:11px;font-weight:800;letter-spacing:.06em;margin-bottom:8px;color:var(--ink-3);}
-  .ab.b .ab-lbl{color:var(--warn);}
-  .ab h3{font-size:16px;margin-bottom:8px;}
-  .ab.b h3{color:#7a1a13;}
-  .ab ul{list-style:none;margin-bottom:10px;}
-  .ab li{font-size:13px;color:var(--ink-2);padding:3px 0 3px 15px;position:relative;}
-  .ab li::before{content:"";position:absolute;left:0;top:11px;width:5px;height:5px;border-radius:50%;background:var(--ink-3);}
-  .ab.b li{color:#8a3b33;}
-  .ab.b li::before{background:var(--warn);}
-  .ab .verdict{font-size:12.5px;font-weight:700;padding-top:9px;border-top:1px dashed #c9cfd8;}
-  .ab.b .verdict{border-top-color:#e8a9a1;color:#7a1a13;}
-
-  /* causes */
-  .cause{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;border-top:3px solid var(--warn);}
-  .cause .cn{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.06em;margin-bottom:5px;}
-  .cause h3{font-size:14px;margin-bottom:5px;line-height:1.45;}
-  .cause p{font-size:12.5px;color:var(--ink-2);line-height:1.6;}
-
-  .blackbox{
-    margin-top:14px;background:#12161c;border-radius:10px;padding:16px 22px;text-align:center;
-  }
+  .blackbox{margin-top:14px;background:#12161c;border-radius:10px;padding:16px 22px;text-align:center;}
   .blackbox p{font-size:17px;font-weight:800;color:#fff;letter-spacing:-.01em;}
   .blackbox span{display:block;font-size:12.5px;font-weight:500;color:#9aa5b4;margin-top:6px;}
 
-  /* symptom → cause */
+  /* 02 症状 → 原因 */
   .symptom{background:var(--warn-soft);border:1px solid #f5c9c4;border-radius:10px;padding:17px 20px;}
   .symptom .sy-lbl{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.08em;margin-bottom:8px;}
   .symptom .sy-lead{font-size:14.5px;color:#7a1a13;line-height:1.7;margin-bottom:13px;}
@@ -90,9 +65,21 @@
     font-size:13.5px;font-weight:700;color:#8a3b33;text-align:center;line-height:1.45;
   }
   .sy-item.hot{background:var(--warn);border-color:var(--warn);color:#fff;}
+  .sy-item .lv{display:block;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--ink-3);margin-bottom:4px;}
+  .sy-item.hot .lv{color:#ffd9d4;}
+  .sy-item em{display:block;font-style:normal;font-size:11.5px;font-weight:500;margin-top:5px;color:#a8756e;line-height:1.5;}
+  .sy-item.hot em{color:#ffd9d4;}
   .sy-deep{
     background:#fff;border-left:3px solid var(--warn);border-radius:0 8px 8px 0;
     padding:12px 16px;font-size:13.5px;color:#7a1a13;line-height:1.7;
+  }
+  .sy-deep .deep-t{font-size:13px;font-weight:800;color:var(--warn);margin-bottom:7px;letter-spacing:.02em;}
+  .sy-deep p{margin-bottom:8px;}
+  .sy-deep p:last-child{margin-bottom:0;}
+  .sy-deep .punchline{
+    font-size:15px;font-weight:800;color:var(--warn);
+    padding:9px 0;border-top:1px dashed #e8a9a1;border-bottom:1px dashed #e8a9a1;
+    margin:10px 0;text-align:center;
   }
 
   .drill{
@@ -106,91 +93,35 @@
   .drill .dr-q{font-size:13px;font-weight:800;color:var(--ink-3);letter-spacing:.04em;margin-bottom:7px;}
   .drill .dr-a{font-size:15px;color:var(--ink-2);line-height:1.7;}
   .drill .dr-a strong{color:var(--ink);}
+  .drill .dr-sub{display:block;font-size:13px;color:var(--ink-3);margin-top:7px;font-weight:600;}
 
-  .cause-head{
-    font-size:13px;font-weight:800;color:var(--ink-3);letter-spacing:.04em;
-    margin-bottom:11px;padding-left:2px;
+  .cause-head{font-size:13px;font-weight:800;color:var(--ink-3);letter-spacing:.04em;margin-bottom:11px;padding-left:2px;}
+  .cause{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;border-top:3px solid var(--warn);}
+  .cause .cn{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.06em;margin-bottom:5px;}
+  .cause h3{font-size:14px;margin-bottom:5px;line-height:1.45;}
+  .cause p{font-size:12.5px;color:var(--ink-2);line-height:1.6;}
+
+  /* 03 塞がった道 */
+  .deadend{
+    background:var(--warn-soft);border:1px solid #f5c9c4;border-radius:10px;
+    padding:14px 16px;border-top:3px solid var(--warn);display:flex;flex-direction:column;
   }
+  .deadend .de-n{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.06em;margin-bottom:5px;}
+  .deadend h3{font-size:14px;margin-bottom:7px;line-height:1.4;color:#7a1a13;}
+  .deadend h3 span{display:block;font-size:11px;font-weight:600;color:#a8756e;margin-top:3px;}
+  .deadend p{font-size:12.5px;color:#8a3b33;line-height:1.6;}
 
-  /* then / now */
-  .thennow{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;}
-  @media (max-width:900px){.thennow{grid-template-columns:1fr;}}
   .tn{border-radius:10px;padding:16px 18px;border:1px solid var(--line);}
-  .tn.then{background:var(--warn-soft);border-color:#f5c9c4;}
   .tn.now{background:var(--ok-soft);border-color:#bfe5d5;}
-  .tn .tn-lbl{font-size:11px;font-weight:800;letter-spacing:.06em;margin-bottom:8px;}
-  .tn.then .tn-lbl{color:var(--warn);}
-  .tn.now .tn-lbl{color:var(--ok);}
+  .tn .tn-lbl{font-size:11px;font-weight:800;letter-spacing:.06em;margin-bottom:8px;color:var(--ok);}
   .tn p{font-size:13.5px;color:var(--ink-2);}
-  .tn.then p{color:#8a3b33;}
-  .tn .punch{font-size:14.5px;font-weight:700;margin-top:8px;}
-  .tn.then .punch{color:#7a1a13;}
-  .tn.now .punch{color:#06603f;}
-  .tn-arrow{display:flex;align-items:center;justify-content:center;font-size:26px;color:var(--accent);min-width:56px;}
-  @media (max-width:900px){.tn-arrow{transform:rotate(90deg);min-height:36px;}}
+  .tn .punch{font-size:14.5px;font-weight:700;margin-top:8px;color:#06603f;}
 
-  .slim{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;}
-  @media (max-width:1000px){.slim{grid-template-columns:1fr;}}
-  .sl{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:15px 17px;}
-  .sl.mid{background:var(--accent-soft);border-color:#c3d6f7;}
-  .sl .sl-n{font-size:13px;font-weight:800;margin-bottom:6px;color:var(--ink);}
-  .sl.mid .sl-n{color:var(--accent);}
-  .sl p{font-size:12.5px;color:var(--ink-2);line-height:1.6;}
-  .sl-arrow{display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:18px;}
-  @media (max-width:1000px){.sl-arrow{transform:rotate(90deg);}}
-
-  /* roles */
-  .roles{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch;}
-  @media (max-width:1000px){.roles{grid-template-columns:1fr;}}
-  .role{border-radius:10px;padding:16px 18px;border:1px solid var(--line);display:flex;flex-direction:column;}
-  .role.design{background:var(--ok-soft);border-color:#bfe5d5;}
-  .role.exec{background:#eef1f5;}
-  .role .r-lbl{font-size:11px;font-weight:800;letter-spacing:.06em;margin-bottom:7px;}
-  .role.design .r-lbl{color:var(--ok);}
-  .role.exec .r-lbl{color:var(--ink-3);}
-  .role h3{font-size:15px;margin-bottom:10px;line-height:1.45;}
-  .role ul{list-style:none;margin-bottom:10px;}
-  .role li{font-size:13px;color:var(--ink-2);padding:4px 0 4px 15px;position:relative;line-height:1.6;}
-  .role li::before{content:"";position:absolute;left:0;top:12px;width:5px;height:5px;border-radius:50%;background:var(--ok);}
-  .role .seal{
-    margin-top:auto;background:var(--ok);color:#fff;font-size:12.5px;font-weight:800;
-    padding:8px 12px;border-radius:6px;text-align:center;
-  }
-  .role .seal.exec-seal{background:var(--ink-2);}
-  .pat{display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:start;margin-bottom:9px;}
-  .pat .pn{
-    font-size:10.5px;font-weight:800;background:#fff;border:1px solid var(--line);
-    color:var(--ink-3);padding:4px 8px;border-radius:5px;white-space:nowrap;
-  }
-  .pat div{font-size:12.5px;color:var(--ink-2);line-height:1.55;}
-
-  .bridge{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:132px;gap:7px;}
-  .bridge .b-arrow{font-size:22px;color:var(--accent);line-height:1;}
-  .bridge .b-pass{
-    background:var(--accent);color:#fff;font-size:12px;font-weight:700;
-    padding:9px 12px;border-radius:6px;text-align:center;line-height:1.5;
-  }
-  .bridge .b-note{
-    background:#fff;border:1px dashed var(--accent);color:var(--accent);
-    font-size:11px;font-weight:700;padding:6px 10px;border-radius:6px;text-align:center;line-height:1.5;
-  }
-  @media (max-width:1000px){.bridge{flex-direction:row;flex-wrap:wrap;min-width:0;} .bridge .b-arrow{transform:rotate(90deg);}}
-
-  .rule{
-    margin-top:14px;background:var(--amber-soft);border:1px solid var(--amber-line);
-    border-radius:10px;padding:15px 20px;
-  }
+  .rule{background:var(--amber-soft);border:1px solid var(--amber-line);border-radius:10px;padding:15px 20px;}
   .rule .ru-lbl{font-size:11px;font-weight:800;color:var(--amber);letter-spacing:.06em;margin-bottom:6px;}
   .rule p{font-size:13.5px;color:#6b4700;line-height:1.7;}
 
-  .loop{
-    margin-top:14px;background:var(--accent-soft);border:1px solid #c3d6f7;border-radius:10px;padding:15px 20px;
-  }
-  .loop .l-lbl{font-size:11px;font-weight:800;color:var(--accent);letter-spacing:.06em;margin-bottom:8px;}
-  .loop p{font-size:13.5px;color:var(--ink-2);}
-  .loop .chain{font-size:13.5px;font-weight:700;color:var(--accent);margin-top:8px;line-height:1.9;}
-
-  /* layer3 */
+  /* 04 作るもの */
   .layer3{
     background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;
     display:flex;flex-direction:column;border-top:3px solid var(--ink-3);
@@ -202,8 +133,7 @@
   .layer3 p{font-size:13px;color:var(--ink-2);line-height:1.65;margin-bottom:12px;}
   .layer3 .l3-tag{
     margin-top:auto;font-size:11.5px;font-weight:800;text-align:center;
-    background:#fff;border:1px solid var(--line);color:var(--ink-3);
-    padding:6px 10px;border-radius:5px;
+    background:#fff;border:1px solid var(--line);color:var(--ink-3);padding:6px 10px;border-radius:5px;
   }
   .layer3 .l3-tag.hot-tag{background:var(--accent);border-color:var(--accent);color:#fff;}
 
@@ -219,7 +149,18 @@
   .wr h4{font-size:13.5px;color:#6b4700;margin-bottom:5px;line-height:1.45;}
   .wr p{font-size:12.5px;color:#7a5510;line-height:1.6;}
 
-  /* asks */
+  /* 05 補足 */
+  .slim{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;margin-bottom:14px;}
+  @media (max-width:1000px){.slim{grid-template-columns:1fr;}}
+  .sl{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:15px 17px;}
+  .sl.mid{background:var(--accent-soft);border-color:#c3d6f7;}
+  .sl .sl-n{font-size:13px;font-weight:800;margin-bottom:6px;color:var(--ink);}
+  .sl.mid .sl-n{color:var(--accent);}
+  .sl p{font-size:12.5px;color:var(--ink-2);line-height:1.6;}
+  .sl-arrow{display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:18px;}
+  @media (max-width:1000px){.sl-arrow{transform:rotate(90deg);}}
+
+  /* 06 迷い */
   .ask{background:#12161c;border-color:#12161c;}
   .ask .sec-head{border-bottom-color:#2b333f;}
   .ask h2{color:#fff;}
@@ -246,7 +187,7 @@
     <div class="byline">Yuichiro（公認会計士・独立コンサルタント）／ 第6回グループセッション</div>
   </header>
 
-  
+  <!-- 01 -->
   <section>
     <div class="sec-head">
       <span class="num">01</span>
@@ -267,12 +208,12 @@
       <div class="card">
         <span class="tag">働き方</span>
         <h3>会社の中に入って作業する</h3>
-        <p>先方のPC、先方の会計システム、先方のExcel。ここが今日の話の急所です。</p>
+        <p>先方のPC、先方の会計システム、先方のExcel。だから<strong>普段使っている自分のAIが使えない</strong>——ここが今日の話の急所です。</p>
       </div>
     </div>
   </section>
 
-  
+  <!-- 02 -->
   <section>
     <div class="sec-head">
       <span class="num">02</span>
@@ -282,21 +223,37 @@
 
     <div class="symptom">
       <div class="sy-lbl">症状</div>
-      <p class="sy-lead"><strong>経理業務のレビュー・検証作業が煩雑。</strong>これは<strong>内部の経理担当がやっても、外部の専門家である私がやっても、まったく同じ</strong>です。</p>
+      <p class="sy-lead"><strong>経理業務のレビュー・検証作業が煩雑。</strong>これは<strong>内部の経理担当がやっても、外部の専門家である私がやっても、まったく同じ</strong>です。しかも、3つの層すべてで起きます。</p>
       <div class="sy-items">
-        <div class="sy-item">数字が合っているかを確認する</div>
-        <div class="sy-item">異常な残高がないかを確認する</div>
-        <div class="sy-item hot">なぜこの残高が残っているのかを突き止める</div>
+        <div class="sy-item">
+          <span class="lv">入口</span>
+          仕訳のレビュー
+          <em>起票された仕訳は正しいか</em>
+        </div>
+        <div class="sy-item hot">
+          <span class="lv">中間</span>
+          残高のレビュー
+          <em>補助科目別・取引先別の残高に不整合はないか</em>
+        </div>
+        <div class="sy-item">
+          <span class="lv">出口</span>
+          帳票のレビュー
+          <em>BS・PL、資料間の数字は合っているか</em>
+        </div>
       </div>
       <div class="sy-deep">
-        <strong>とくに重いのが最後です。</strong>補助科目を明細まで深掘りして、過去の履歴を全部たどる。相殺されて消えていく中に、<strong>2015年の1件だけが、なぜか残っている。</strong>それを見つけるまでに、何十往復もします。
+        <div class="deep-t">やっかいなのは、これが「間違い」ではないこと</div>
+        <p><strong>勘定科目で見れば、仕訳は正しい。</strong>試算表は合うし、決算も締まります。<strong>でも補助科目の付け方にルールがないので、補助科目の残高で見ると不整合が出る。</strong>取引先も同じで、合併により同じ取引先が重複していたり、社名変更で旧社名と新社名が混在していたりします。</p>
+        <p class="punchline">最終成果物としては、間違っていない。だから見て見ぬふりのまま、10年積み上がる。</p>
+        <p>相殺されて消えていくものの中に、<strong>2015年の1件だけがなぜか残っている</strong> ── そういう状態が生まれます。見つけるまでに、何十往復もします。</p>
       </div>
     </div>
 
     <div class="drill">
-      <div class="dr-q">なぜ、こんなに時間がかかるのか</div>
-      <div class="dr-a">一つひとつの作業が難しいからではありません。<br>
-      <strong>見に行く先 ── 会計システムの中が、そもそも整理されていないからです。</strong></div>
+      <div class="dr-q">なぜ、レビューと検証にこんなに時間がかかるのか</div>
+      <div class="dr-a">放置し続けたせいで、毎回<strong>「これは間違いなのか、最終成果物には影響しないのか」という判断が入る</strong>からです。<br>
+      つまり、<strong>見に行く先 ── 会計システムの中が、そもそも整理されていない。</strong><br>
+      <span class="dr-sub">しかも「間違い」として機械的に弾けないので、結局1件ずつ人が見るしかない。</span></div>
     </div>
 
     <div class="cause-head">なぜ、整理されていないのか ── 3つが積み重なっている</div>
@@ -317,39 +274,62 @@
         <p>請求書の自動読込、SaaS連携。効率化はした。でも<strong>整っていない土台にそのまま繋いだ</strong>ので、複雑さが増して手が付けられなくなった。</p>
       </div>
     </div>
+
     <div class="blackbox">
       <p>会計システムだけが整理されていないから、他のシステムと突合できない</p>
       <span>DXが騒がれた時代からずっと、ここが詰まっていました。</span>
     </div>
   </section>
 
-  
+  <!-- 03 -->
   <section>
     <div class="sec-head">
       <span class="num">03</span>
       <h2>なぜ、今まで誰も掃除できなかったのか</h2>
-      <span class="sec-note">そして、なぜ今ならできるのか</span>
+      <span class="sec-note">道が4本とも塞がっていた</span>
     </div>
-    <div class="thennow">
-      <div class="tn then">
-        <div class="tn-lbl">これまで</div>
-        <p>本気で中をきれいにしようとすると、情報システム室の協力が要りました。でも情シスに会計が分かる人がいない。会計が分かる経理には、システムを触る力がない。</p>
-        <p class="punch">だから、途中で頓挫していた。</p>
+
+    <div class="grid g4">
+      <div class="deadend">
+        <div class="de-n">道 1</div>
+        <h3>人力でやる<br><span>Excel・関数で</span></h3>
+        <p>何十万件の仕訳を遡ることになる。<strong>途方もない時間がかかる。</strong></p>
       </div>
-      <div class="tn-arrow">▶</div>
-      <div class="tn now">
-        <div class="tn-lbl">いま</div>
-        <p>AIが来ました。<strong>経理側の人間が、自分でシステムの中身を解析して、整理のルールを設計して、変えられる。</strong>情シスを待たなくていい。</p>
-        <p class="punch">会計が分かる人間が、はじめて自分で開けられる。</p>
+      <div class="deadend">
+        <div class="de-n">道 2</div>
+        <h3>ツールを連動させる<br><span>RPA・SaaS を会計システムに</span></h3>
+        <p>実現するには<strong>セキュリティ面で情シスの理解が不可欠。</strong>ここで一度頓挫した。</p>
+      </div>
+      <div class="deadend">
+        <div class="de-n">道 3</div>
+        <h3>会計システムの中で解決する</h3>
+        <p>いろいろできる反面<strong>複雑すぎて、情報収集の段階で苦労する。</strong>問い合わせても営業担当と実務担当が分かれていて伝わらず、汎用システムなのでニーズに応えてくれない。</p>
+      </div>
+      <div class="deadend">
+        <div class="de-n">道 4</div>
+        <h3>外部の専門家を入れる<br><span>会計コンサルなど</span></h3>
+        <p><strong>そこにコストをかけたくない</strong>というのが会社の本音。</p>
       </div>
     </div>
-    <div class="loop" style="background:var(--amber-soft);border-color:var(--amber-line);">
-      <div class="l-lbl" style="color:var(--amber);">ただし、私の現場にはもう一枚の壁がある</div>
-      <p style="color:#6b4700;">クライアントの実データは持ち出せない。そして<strong>自分のAIが使えない</strong>。先方が用意したAIはあっても、Copilotだけ・制限つきが普通。半年かけて組み上げてきたスキルとノウハウが、一番使いたい場所で0%になります。</p>
+
+    <div class="blackbox">
+      <p>結局、内部でやるしかない。でも、内部に手段がなかった。</p>
+      <span>だから20年分の汚れが、そのまま残り続けてきました。</span>
+    </div>
+
+    <div class="tn now" style="margin-top:14px;">
+      <div class="tn-lbl">いま ── AIが、内部の手段になった</div>
+      <p><strong>外部にコストをかけず、システムにも手を入れず、経理の人間が自分で中身を解析して、整理のルールを設計して、変えられる。</strong>会計が分かる人間が、はじめて自分で開けられるようになりました。</p>
+      <p class="punch">ここに、私の付加価値があります。</p>
+    </div>
+
+    <div class="rule" style="margin-top:14px;">
+      <div class="ru-lbl">ただし、私の現場にはもう一枚の壁がある</div>
+      <p>クライアントの実データは持ち出せない。そして<strong>自分のAIが使えない。</strong>先方が用意したAIはあっても、Copilotだけ・制限つきが普通です。半年かけて組み上げてきたスキルとノウハウが、一番使いたい場所で0%になります。</p>
     </div>
   </section>
 
-  
+  <!-- 04 -->
   <section>
     <div class="sec-head">
       <span class="num">04</span>
@@ -367,25 +347,25 @@
       <div class="layer3">
         <div class="l3-n">第1層</div>
         <h3>汚れのカタログ</h3>
-        <p>会計システムに何が起きうるかの一覧。滞留残高／マイナス残高／取引先の表記ゆれ・重複／休眠補助科目／科目違いの入り繰り／消込漏れ／二重計上／移行時の残骸／合併時の統合残骸……</p>
+        <p><strong>いわば「病気の一覧」。</strong>会計システムの汚れ方には、決まったパターンがあります。同じ取引先が二重に登録されている／補助科目の付け方が担当者ごとにバラバラ／10年動いていない残高が残っている／旧社名と新社名の混在／補助科目間の入り繰り／消込漏れ／移行時の残骸……</p>
         <div class="l3-tag">どの会社でも使える資産</div>
       </div>
       <div class="layer3 hot">
         <div class="l3-n">第2層</div>
         <h3>1項目ごとの「調べ方の型」</h3>
-        <p><strong>ここが本体です。</strong>症状／なぜ起きるか／判別の順番／見分けるポイント／環境別の実行指示。監査、IPO準備、合併。<strong>実際に中を見てきた現場で無意識にやっている手順</strong>を、外に出して型にします。</p>
+        <p><strong>病気ごとの、診断手順書。</strong>症状／なぜ起きるか／判別の順番／見分けるポイント／環境別の実行指示。監査、IPO準備、合併。<strong>今まで自分の頭の中だけにあった手順</strong>を、外に出します。</p>
         <div class="l3-tag hot-tag">現場を見てきたから書ける</div>
       </div>
       <div class="layer3">
         <div class="l3-n">第3層</div>
         <h3>会社プロファイル</h3>
-        <p>その会社の勘定科目体系、補助科目の付け方、システム移行の履歴、既知の癖、これまでの調査結果。毎回ゼロから説明しなくて済むようにする。</p>
+        <p><strong>その会社の「体質」。</strong>同じ病気でも、会社によって出方が違います。勘定科目体系、補助科目の付け方、移行の履歴、既知の癖、これまでの調査結果を溜めておく。</p>
         <div class="l3-tag">その会社の文脈</div>
       </div>
     </div>
 
     <div class="formula">
-      第1層 × 第2層 × 第3層 　▶　 <strong>その会社・その環境で通る調査指示</strong>
+      この3つをまとめて <strong>Webアプリ</strong> にする 　▶　 その会社・その環境で通る<strong>調査指示</strong>が出てくる
     </div>
 
     <div class="why">
@@ -401,7 +381,7 @@
         </div>
         <div class="wr">
           <h4>3. クライアントに置いて帰るから</h4>
-          <p>私の仕事は「自分たちで回る組織を作ること」。<strong>チャット履歴は渡せませんが、アプリは渡せます。</strong>置いて帰れて初めて完成です。</p>
+          <p>最後は<strong>先方の内部で回す「月次検証用ツール」として置いて帰りたい。</strong>私の仕事は「自分たちで回る組織を作ること」なので、置いて帰れて初めて完成です。チャット履歴は渡せませんが、アプリは渡せます。</p>
         </div>
         <div class="wr">
           <h4>4. 横断で見たいから</h4>
@@ -411,7 +391,7 @@
     </div>
   </section>
 
-  
+  <!-- 05 -->
   <section>
     <div class="sec-head">
       <span class="num">05</span>
@@ -441,7 +421,7 @@
     </div>
   </section>
 
-  
+  <!-- 06 -->
   <section class="ask">
     <div class="sec-head">
       <span class="num">06</span>
