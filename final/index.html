@@ -104,6 +104,16 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
   p, li, figcaption{text-wrap:pretty;}
   /* 全幅で流れる地の文にも同じ行長キャップをかける（日本語で42字/行）*/
   .symptom .sy-lead, .sy-deep p{max-width:42em;}
+
+  /* 上限が効いて余った幅は、左右に均等に散らす。
+     右だけ空くと「入れ忘れ」に見えるため。上限そのものは変えない。
+     2列に並ぶカードの中身（.card p / .sum p / .deadend p / .cause p）と
+     見出し・写真・数字の木は、箱の幅で決まっているので対象外。 */
+  /* 上限が効いて余った幅は、箱の中では左右に均等に散らす。右だけ空くと
+     「入れ忘れ」に見えるため。上限そのものは変えない。
+     枠のある箱の中（01 の症状・言い切り、05 の「そこで」）だけに効かせる。
+     ヘッダーのリードと地の文は、見出しと左端を揃えたいので左寄せのまま。 */
+  .symptom .sy-lead, .sy-deep p, .sl p{margin-inline:auto;}
   /* 700〜900px でグリッドが1列に落ちると、カードの中の文も全幅で流れる */
   .deadend p, .cause p, .card p, .sum p{max-width:42em;}
   /* ここだけ44em。42emだと最終行が3字になる */
@@ -184,7 +194,7 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
 <header>
   <div class="eyebrow">ADS 卒業制作</div>
   <h1>クライアントのデータに触れずに、自分のAIを使い切る</h1>
-  <p class="lead">クライアントのPCでは、自分のAIは使えない。実データも持ち出せない。だから自分のAIは設計する側に回し、現場には指示だけを渡す。そのための道具「Whitebox」を作り、5社が<span class="nb">2段階</span>で合併した会社の未払金で回した。</p>
+  <p class="lead">クライアントのPCでは、自分のAIは使えない。実データも持ち出せない。だから自分のAIは設計する側に回し、現場には指示だけを渡す。そのための道具「Whitebox」を作り、5社が<span class="nb">2段階</span>で合併し、複雑化した会社の未払金残高で回した。</p>
 </header>
 
 <section aria-labelledby="h-01">
@@ -196,13 +206,13 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
     <div class="sy-items">
       <div class="sy-item"><span class="lv">検査</span>数字が合っているかを確認する<em>ルールで判定できる。</em></div>
       <div class="sy-item"><span class="lv">検査</span>異常な残高がないかを確認する<em>マイナスの残高など、条件で拾える。</em></div>
-      <div class="sy-item hot"><span class="lv">究明</span>なぜこの残高が残っているのかを突き止める<em>明細まで遡って特定する。ルールでは判定できない。</em></div>
+      <div class="sy-item hot"><span class="lv">究明</span>補助科目別に見たときの不整合を突き止める<em>総額も取引先別も合う。合わないのは補助科目別だけ。明細を遡っても、入り繰りがあるので突合できない。</em></div>
     </div>
     <div class="sy-deep">
       <div class="deep-t">とくに重いのが最後です。</div>
-      <p>明細まで遡って、過去の履歴を全部たどる。相殺されて消えていく中に、何年も前の1件だけが、なぜか残っている。それを見つけるまでに、何十往復もします。</p>
-      <p>時間がかかるのは、ひとつひとつの作業が難しいからではありません。</p>
-      <p class="punchline">見に行く先、つまり会計システムの中が、そもそも整理されていないからです。</p>
+      <p>未払金の総額は合っています。取引先別で見ても合っています。合わないのは、補助科目別に見たときだけです。会計上は正しいので、これまで見送られてきました。</p>
+      <p>補助科目で明細を遡っても、突合できません。合併のたびに各社の補助科目が混ざったまま持ち込まれ、起票のときにどの補助科目を使うかのルールも決まっていないので、同じ性質の取引が別々の補助科目に入っています。相殺されて消えていく中に、何年も前の1件だけが、なぜか残っている。それを見つけるまでに、何十往復もします。</p>
+      <p class="punchline">決算は締まります。だから、補助科目の中身だけが、誰にも究明されないまま残ります。</p>
     </div>
   </div>
 
@@ -310,7 +320,7 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
   </figure>
 
   <h3>5. 3つのうち、まず未払金で回した</h3>
-  <p class="prose">5社が2段階で合併した会社の未払金で、明細を1本に積み、消し込みを3段で回した。</p>
+  <p class="prose">5社が2段階で合併した会社の未払金で、明細を1本に積み、補助科目を揃えたうえで、消し込みを3段で回した。</p>
   <div class="tree">
     <div class="tr"><span class="tr-l">明細</span><span class="tr-v">25,331</span><span class="tr-u">行</span></div>
     <div class="tr d1"><span class="tr-l">1対1の完全一致で消えた</span><span class="tr-v">8,362</span><span class="tr-u">行</span></div>
