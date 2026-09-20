@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>クライアントのデータに触れずに、自分のAIを使い切る｜ADS 卒業制作</title>
+<style>:root{
+    --ink:#12161c; --ink-2:#3c4655; --ink-3:#6b7686;
+    --line:#dfe4ea; --bg:#f4f6f8; --card:#ffffff;
+    --accent:#1a56db; --accent-soft:#e8effc;
+    --warn:#b42318; --warn-soft:#fdecea;
+    --ok:#0a7c53; --ok-soft:#e3f5ed;
+    --amber:#8a5a00; --amber-soft:#fff8e6; --amber-line:#f0d79a;
+  }
+*{box-sizing:border-box;margin:0;padding:0;}
+body{
+    font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Noto Sans JP","Meiryo",system-ui,sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.65;
+    -webkit-font-smoothing:antialiased; padding:28px 20px 60px;
+  }
+.wrap{max-width:1180px;margin:0 auto;}
+header{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:24px 28px; margin-bottom:16px; border-left:5px solid var(--accent);
+  }
+.eyebrow{font-size:12px;letter-spacing:.14em;color:var(--ink-3);font-weight:700;margin-bottom:8px;}
+h1{font-size:29px;line-height:1.35;letter-spacing:-.01em;}
+.grid{display:grid;gap:14px;}
+.g2{grid-template-columns:1fr 1fr;}
+@media (max-width:900px){.g2{grid-template-columns:1fr;}}
+section{
+    background:var(--card); border:1px solid var(--line); border-radius:14px;
+    padding:22px 24px; margin-bottom:16px;
+  }
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
+.num{font-size:12px;font-weight:800;letter-spacing:.08em;background:var(--accent);color:#fff;padding:3px 9px;border-radius:5px;flex-shrink:0;}
+h2{font-size:19px;letter-spacing:-.01em;}
+.card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:15px 17px;}
+.card h3{font-size:15px;margin-bottom:6px;}
+.card p{font-size:13.5px;color:var(--ink-2);}
+/* 02 症状 → 原因 */
+  .symptom{background:var(--warn-soft);border:1px solid #f5c9c4;border-radius:10px;padding:17px 20px;}
+.symptom .sy-lbl{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.08em;margin-bottom:8px;}
+.symptom .sy-lead{font-size:14.5px;color:#7a1a13;line-height:1.7;margin-bottom:13px;}
+.sy-items{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:13px;}
+@media (max-width:900px){.sy-items{grid-template-columns:1fr;}}
+.sy-item{
+    background:#fff;border:1px solid #eec4be;border-radius:8px;padding:11px 14px;
+    font-size:13.5px;font-weight:700;color:#8a3b33;text-align:center;line-height:1.45;
+  }
+.sy-item.hot{background:var(--warn);border-color:var(--warn);color:#fff;}
+.sy-item .lv{display:block;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--ink-3);margin-bottom:4px;}
+.sy-item.hot .lv{color:#ffd9d4;}
+.sy-item em{display:block;font-style:normal;font-size:11.5px;font-weight:500;margin-top:5px;color:#8f5f57;line-height:1.5;}
+.sy-item.hot em{color:#ffd9d4;}
+.sy-deep{
+    background:#fff;border-left:3px solid var(--warn);border-radius:0 8px 8px 0;
+    padding:12px 16px;font-size:13.5px;color:#7a1a13;line-height:1.7;
+  }
+.sy-deep .deep-t{font-size:13px;font-weight:800;color:var(--warn);margin-bottom:7px;letter-spacing:.02em;}
+.sy-deep p{margin-bottom:8px;}
+.sy-deep p:last-child{margin-bottom:0;}
+.sy-deep .punchline{
+    max-width:none;
+    font-size:15px;font-weight:800;color:var(--warn);
+    padding:9px 0;border-top:1px dashed #e8a9a1;border-bottom:1px dashed #e8a9a1;
+    margin:10px 0;text-align:center;
+  }
+.cause-head{font-size:13px;font-weight:800;color:var(--ink-3);letter-spacing:.04em;margin-bottom:11px;padding-left:2px;}
+.cause{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;border-top:3px solid var(--warn);}
+.cause .cn{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.06em;margin-bottom:5px;}
+.cause h3{font-size:14px;margin-bottom:5px;line-height:1.45;}
+.cause p{font-size:12.5px;color:var(--ink-2);line-height:1.6;}
+/* 03 塞がった道 */
+  .deadend{
+    background:var(--warn-soft);border:1px solid #f5c9c4;border-radius:10px;
+    padding:14px 16px;border-top:3px solid var(--warn);display:flex;flex-direction:column;
+  }
+.deadend .de-n{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.06em;margin-bottom:5px;}
+.deadend h3{font-size:14px;margin-bottom:7px;line-height:1.4;color:#7a1a13;}
+.deadend p{font-size:12.5px;color:#8a3b33;line-height:1.6;}
+/* 05 補足 */
+  .slim{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;margin-bottom:14px;}
+@media (max-width:1000px){.slim{grid-template-columns:1fr;}}
+.sl{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:15px 17px;}
+.sl.mid{background:var(--accent-soft);border-color:#c3d6f7;}
+.sl .sl-n{font-size:13px;font-weight:800;margin-bottom:6px;color:var(--ink);}
+.sl.mid .sl-n{color:var(--accent);}
+.sl p{font-size:12.5px;color:var(--ink-2);line-height:1.6;}
+.sl-arrow{display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:18px;}
+@media (max-width:1000px){.sl-arrow .ar{display:inline-block;transform:rotate(90deg);}}
+footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
+
+  /* ── ここから、この図解で足したぶん ── */
+
+  /* 地の文の行長キャップ（42em）。日本語は35〜45字/行で読める */
+  .lead{font-size:15.5px;color:var(--ink-2);max-width:42em;margin-top:10px;line-height:1.75;}
+  .prose{font-size:14px;line-height:1.9;color:var(--ink-2);max-width:42em;margin-bottom:12px;}
+  .prose:last-child{margin-bottom:0;}
+  ul.prose{padding-left:1.2em;}
+  ul.prose li{margin-bottom:6px;}
+  ul.prose li:last-child{margin-bottom:0;}
+  .prose b{color:var(--ink);}
+  p, li, figcaption{text-wrap:pretty;}
+  /* 全幅で流れる地の文にも同じ行長キャップをかける（日本語で42字/行）*/
+  .symptom .sy-lead, .sy-deep p{max-width:42em;}
+  /* 700〜900px でグリッドが1列に落ちると、カードの中の文も全幅で流れる */
+  .deadend p, .cause p, .card p, .sum p{max-width:42em;}
+  /* ここだけ44em。42emだと最終行が3字になる */
+  .sl p{max-width:44em;}
+  /* 段落どうしの間。.sy-deep p と同じ値に揃える */
+  .card p + p, .deadend p + p, .sl p + p{margin-top:8px;}
+  /* まとめの本文と、詰まり1は最終行が短くなるので、行の長さを均す */
+  .sum p, .p-balance{text-wrap:balance;}
+  .br-wide{display:none;}
+  @media (min-width:700px){.br-wide{display:inline;}}
+
+  /* 2枚＋矢印1つ。列の数だけ .slim を変える */
+  /* 2枚＋矢印。狭い画面は .slim の1列指定に任せるので、広いときだけ効かせる */
+  @media (min-width:1001px){.slim--duo{grid-template-columns:1fr 14em 1fr;}}
+  .slim--duo .sl-arrow{flex-direction:column;gap:6px;}
+  .slim--duo .sl-arrow .lbl{font-size:11.5px;color:var(--ink-2);text-align:center;line-height:1.5;}
+  /* ラベルは15字と17字。1行に収まる幅を確保する（11.5px × 17.5em ≒ 201px）*/
+  @media (min-width:1001px){.slim--duo .sl-arrow .lbl{max-width:17.5em;}}
+  /* 越境の境目。線そのものに色を持たせ、箱は無彩色に戻す */
+  @media (min-width:1001px){.slim--duo .sl-arrow{border-left:3px dashed var(--accent);padding-left:14px;}}
+  @media (max-width:1000px){.slim--duo .sl-arrow{border-top:3px dashed var(--accent);padding-top:10px;}}
+  .sl h3{font-size:14px;margin:0 0 7px;color:var(--accent);line-height:1.45;}
+
+  /* 画面の写真。押すと原寸で開く */
+  .shot{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--card);margin-bottom:14px;}
+  .shot img{display:block;width:100%;height:auto;border-radius:6px;}
+  .shot--narrow img{max-width:320px;margin:0 auto;}
+  .shot figcaption{font-size:12px;color:var(--ink-3);margin-top:8px;text-align:center;}
+
+  /* 数字の木。内訳は字下げ、数値は右寄せ。注記は深さによらず同じ位置から */
+  .tree{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;max-width:42em;}
+  .tree .tr{display:flex;align-items:baseline;gap:10px;padding:3px 0;font-size:13.5px;color:var(--ink);}
+  .tree .tr-l{flex:1;min-width:0;line-height:1.6;}
+  .tree .tr-v{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;}
+  .tree .tr-u{font-size:11.5px;color:var(--ink-2);width:2.4em;}
+  .tree .tr.d1{padding-left:18px;border-left:1px solid var(--ink-3);margin-left:6px;}
+  .tree .tr.d2{padding-left:18px;border-left:1px solid var(--ink-3);margin-left:30px;}
+  /* 地が bg のとき ink-3 は 4.25:1 で基準に届かないので、ここだけ ink-2 にする */
+  .tree .tr-note{font-size:11.5px;color:var(--ink-2);line-height:1.6;}
+  .tree .tr-note.n1{padding-left:24px;}
+  .tree .tr-note.n2{padding-left:48px;}
+  /* 括弧や短い句を、途中で折り返させないための印 */
+  .nb{white-space:nowrap;}
+  /* 狭い画面では、折り返させない指定のほうが列を押し広げてしまう */
+  @media (max-width:700px){.nb{white-space:normal;}}
+
+  /* まとめ。mark は1枚に1か所だけ */
+  .sum{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:15px 17px;}
+  .sum h3{font-size:15px;margin-bottom:6px;}
+  .sum p{font-size:13.5px;color:var(--ink-2);}
+  .sum mark{background:var(--accent-soft);color:var(--ink);font-weight:700;padding:1px 4px;border-radius:3px;}
+
+  /* 節の中の小見出し（カードの中の h3 には当てない） */
+  section > h3{font-size:16px;font-weight:700;line-height:1.5;margin:26px 0 9px;padding-left:10px;border-left:3px solid var(--accent);}
+  section > h3:first-of-type{margin-top:6px;}
+
+  /* 節の主張の1行（原本で「見出し：」だった文） */
+  .deck{font-size:15.5px;font-weight:700;color:var(--ink);max-width:42em;line-height:1.75;margin-bottom:14px;}
+
+  /* まとめのオチは、カードの最終行に独立させる */
+  .sum{border-left:3px solid var(--accent);}
+  .sum mark{display:block;margin-top:8px;}
+
+  /* 原因の積み重なり。列の間に「＋」を置く */
+  .stack{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;}
+  .stack .plus{display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:var(--ink-3);}
+  @media (max-width:900px){.stack{grid-template-columns:1fr;}}
+
+  /* デモへの導線。1ページに1つだけ */
+  .cta{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:14px;
+       padding:10px 18px;border-radius:8px;text-decoration:none;margin-top:14px;}
+
+  footer a{color:var(--accent);}</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">ADS 卒業制作</div>
+  <h1>クライアントのデータに触れずに、自分のAIを使い切る</h1>
+  <p class="lead">クライアントのPCでは、自分のAIは使えない。実データも持ち出せない。だから自分のAIは設計する側に回し、現場には指示だけを渡す。そのための道具「Whitebox」を作り、5社が<span class="nb">2段階</span>で合併した会社の未払金で回した。</p>
+</header>
+
+<section aria-labelledby="h-01">
+  <div class="sec-head"><span class="num">01</span><h2 id="h-01">解決する面倒</h2></div>
+
+  <div class="symptom">
+    <div class="sy-lbl">症状</div>
+    <p class="sy-lead">経理業務のレビュー・検証が煩雑です。これは内部の経理担当がやっても、外部の私がやっても変わりません。やっていることは、大きく3つに分かれます。</p>
+    <div class="sy-items">
+      <div class="sy-item"><span class="lv">検査</span>数字が合っているかを確認する<em>ルールで判定できる。</em></div>
+      <div class="sy-item"><span class="lv">検査</span>異常な残高がないかを確認する<em>マイナスの残高など、条件で拾える。</em></div>
+      <div class="sy-item hot"><span class="lv">究明</span>なぜこの残高が残っているのかを突き止める<em>明細まで遡って特定する。ルールでは判定できない。</em></div>
+    </div>
+    <div class="sy-deep">
+      <div class="deep-t">とくに重いのが最後です。</div>
+      <p>明細まで遡って、過去の履歴を全部たどる。相殺されて消えていく中に、何年も前の1件だけが、なぜか残っている。それを見つけるまでに、何十往復もします。</p>
+      <p>時間がかかるのは、ひとつひとつの作業が難しいからではありません。</p>
+      <p class="punchline">見に行く先、つまり会計システムの中が、そもそも整理されていないからです。</p>
+    </div>
+  </div>
+
+  <div class="cause-head">なぜ整理されていないのか ─ 3つが積み重なっている</div>
+  <div class="stack">
+    <div class="cause">
+      <div class="cn">原因 1</div>
+      <h3>過去が、そのまま堆積している</h3>
+      <p>会計システムはどの会社にも昔からあります。手入力の時代のデータがそのまま残り、さらに合併のたびに、時間がない中で複数のシステムを無理やり統合する。不要なデータが残ったまま集約され、取引先の情報が入り混じります。</p>
+    </div>
+    <div class="plus" aria-hidden="true">＋</div>
+    <div class="cause">
+      <div class="cn">原因 2</div>
+      <h3>掃除する人がいない</h3>
+      <p>経理は日々のルーティンに追われていて、データを整理する時間を取れない。誰も手を付けないまま、堆積だけが進んでいきます。</p>
+    </div>
+    <div class="plus" aria-hidden="true">＋</div>
+    <div class="cause">
+      <div class="cn">原因 3</div>
+      <h3>入口だけDXした</h3>
+      <p>請求書の自動読込、SaaS連携。効率化はした。でも整っていない土台にそのまま繋いだので、複雑さが増して手が付けられなくなりました。</p>
+    </div>
+  </div>
+
+  <p class="prose">会計システムだけが整理されていないから、他のシステムと突合できない。<br class="br-wide">DXが言われた時代からずっと、ここが詰まっていました。</p>
+
+  <p class="prose">ここまでは、現場に入る前から分かっていたことです。<br class="br-wide">実際に現場へ行くと、続きがありました。</p>
+
+  <div class="grid g2">
+    <div class="deadend">
+      <div class="de-n">壁 1</div>
+      <h3>自分のAIを持ち込めない</h3>
+      <p>会社が用意したAIはあっても、機能が限られていることが多い。積み上げてきたやり方が、一番使いたい場所で使えません。</p>
+    </div>
+    <div class="deadend">
+      <div class="de-n">壁 2</div>
+      <h3>実データを持ち出せない</h3>
+      <p>手元に持ち帰って解析する、ができない。見られるのは、その会社のPCの中だけです。</p>
+    </div>
+  </div>
+
+  <p class="prose">道具を持たずに現場へ行く、という状態でした。</p>
+</section>
+
+<section aria-labelledby="h-02">
+  <div class="sec-head"><span class="num">02</span><h2 id="h-02">作りたいと思った理由</h2></div>
+  <p class="prose">8月のグループセッションで一番刺さったのは、メンバーの視座の高さだった。面倒ごとがたくさんあって、あれもこれも直したいという強い気持ち。それは自分にも共通する。ただ自分は、忙しさの中で後回しにしてしまうことがある。</p>
+  <p class="prose">この「後回し」は、会計システムの汚れが積み上がるのと同じ形をしている。最終成果物としては間違っていない。誰のミスでもないし、緊急でもない。だから見て見ぬふりのまま、<span class="nb">10年</span>積み上がる。</p>
+  <p class="prose">その仕組みを内側から知っているから、それに対抗する道具が作れる。そして半年前の自分には、それを作る手段がなかった。</p>
+</section>
+
+<section aria-labelledby="h-03">
+  <div class="sec-head"><span class="num">03</span><h2 id="h-03">作ったもの</h2></div>
+  <p class="deck">自分のAIが使えない現場で、経理が自分で会計システムの中を調べるための「設計側」の道具</p>
+
+  <h3>1. 全体の形</h3>
+  <div class="slim slim--duo">
+    <div class="sl">
+      <div class="sl-n">自分のPC（このアプリ）</div>
+      <p>設計する側<br>仮説を立て、指示を組む<br>実データは一度も見ない</p>
+    </div>
+    <div class="sl-arrow">
+      <span class="ar">→</span><span class="lbl">越境するのは指示<span class="nb">（文字列）</span>だけ</span>
+      <span class="ar">←</span><span class="lbl">戻すのは集計値だけ。<span class="nb">明細は戻さない</span></span>
+    </div>
+    <div class="sl">
+      <div class="sl-n">会社のPC</div>
+      <p>実行する側<br>実データに触れる<br>会社が許可したAIだけが読む</p>
+    </div>
+  </div>
+  <p class="prose">実データは持ち出せず、自分のAIも使えない。だから、実データに触れずに済む「設計する側」を自分の手元に作った。会社のPCに持ち込むのは、貼るだけで動く指示（<span class="nb">Power Query</span>、VBA、数式、会社のAIへの指示文）だけ。</p>
+
+  <h3>2. 会社を開くと、悩みごとの入口が並ぶ</h3>
+  <p class="prose">1つの会社に、悩みごとの入口を並べる。今回の会社では3つ。未払金の未消込残を特定する、仕訳の承認ルールを作る、CFの作成と分析を効率化する。</p>
+  <p class="prose">入口にはそれぞれ、終わりの条件、いまの段、次の一手が出る。どの悩みから手を付けるかは現場次第なので、どこからでも入れる形にした。</p>
+  <p class="prose">写真はすべて架空のデモの会社です。</p>
+  <figure class="shot">
+    <a href="img/dashboard.png" target="_blank" rel="noopener noreferrer">
+      <img src="img/dashboard.png" width="2560" height="1650" loading="lazy" alt="会社のダッシュボード。悩みごとの入口が縦に並び、それぞれに終わりの条件・いまの段・次の一手が出ている">
+    </a>
+    <figcaption>会社のダッシュボード（押すと原寸で開く）</figcaption>
+  </figure>
+
+  <h3>3. 入口の中で、確かめることと、持ち込む指示が溜まっていく</h3>
+  <ul class="prose">
+    <li><b>段</b>：終わりまでの道のりを段に分ける。いまの段は人が選ぶ</li>
+    <li><b>次の一手</b>：いまの段の中で、まだ確かめていないことと、まだ回していない指示を、アプリが並べる</li>
+    <li><b>未確認のこと</b>：自分の記憶も含めて、確かめる前はすべて仮説として置く。確かめたら「確認」か「記憶と違った」に変わる。外れた記録も消さない</li>
+    <li><b>持ち出し物</b>：会社のPCに貼る指示の本体と、その実行の記録。失敗した記録も残し、次の指示の材料にする</li>
+  </ul>
+  <figure class="shot">
+    <a href="img/track.png" target="_blank" rel="noopener noreferrer">
+      <img src="img/track.png" width="2560" height="1350" loading="lazy" alt="切り口の詳細。終わりの条件、段の列、次の一手、持ち出し物が縦に並んでいる">
+    </a>
+    <figcaption>切り口の詳細（押すと原寸で開く）</figcaption>
+  </figure>
+
+  <h3>4. 越境のルールを知っているAIに相談できる</h3>
+  <p class="prose">画面の右に、会社の前提と「何を持ち出してよいか」のルールを知ったAIがいる。相談すると、新しい切り口や指示を提案してくる。提案はそのまま登録されず、人が下書きを直してから登録する。</p>
+  <figure class="shot shot--narrow">
+    <a href="img/chat.png" target="_blank" rel="noopener noreferrer">
+      <img src="img/chat.png" width="640" height="714" loading="lazy" alt="右の相談パネル。詰まったことを書くと、次に確かめることが返ってくる">
+    </a>
+    <figcaption>相談パネル（押すと原寸で開く）</figcaption>
+  </figure>
+
+  <h3>5. 3つのうち、まず未払金で回した</h3>
+  <p class="prose">5社が2段階で合併した会社の未払金で、明細を1本に積み、消し込みを3段で回した。</p>
+  <div class="tree">
+    <div class="tr"><span class="tr-l">明細</span><span class="tr-v">25,331</span><span class="tr-u">行</span></div>
+    <div class="tr d1"><span class="tr-l">1対1の完全一致で消えた</span><span class="tr-v">8,362</span><span class="tr-u">行</span></div>
+    <div class="tr"><span class="tr-l">差額の残る</span><span class="tr-v">621</span><span class="tr-u">キー</span></div>
+    <div class="tr d1"><span class="tr-l">最終月の計上だけで説明できた</span><span class="tr-v">177</span><span class="tr-u">キー</span></div>
+    <div class="tr d1"><span class="tr-l">残高の正体<span class="nb">（どの計上が残っているか）</span>を特定できた</span><span class="tr-v">151</span><span class="tr-u">キー</span></div>
+    <div class="tr d2"><span class="tr-l">うち、正常と言い切れない</span><span class="tr-v">20</span><span class="tr-u">キー</span></div>
+    <div class="tr-note n2">← 人が1件ずつ見る</div>
+    <div class="tr d1"><span class="tr-l">正体を特定できない</span><span class="tr-v">293</span><span class="tr-u">キー</span></div>
+    <div class="tr-note n1">← 次の段（部分和）で扱う</div>
+  </div>
+  <p><a class="cta" href="https://fredemantha0109.github.io/ads-graduation-app/about/" target="_blank" rel="noopener noreferrer">この道具を触ってみる →</a></p>
+</section>
+
+<section aria-labelledby="h-04">
+  <div class="sec-head"><span class="num">04</span><h2 id="h-04">工夫したポイント</h2></div>
+  <p class="deck">確かめる経路を、道具の中に作った</p>
+  <div class="grid g2">
+    <div class="card">
+      <h3>1. 自分の記憶も「仮説」として置いた</h3>
+      <p>経理の当事者として、「見て見ぬふりの1つ目は『その他』の欄だ」と覚えていた。それを答えとして書かず、確かめる前の仮説としてアプリに置いた。</p>
+      <p>あとから別々の日に、別々の切り口で、実データが裏付けた。消し込みの1段目を回すと、残った3,899件のうち2,819件（72%）が「その他」だった。</p>
+      <p>逆に、記憶が外れたこともある。「繰越は仕訳の中にある」「取引先コードが空欄の行は多い」は、どちらも実データで外れた。おかげで、明細を前後に切るクエリも、空欄を分類する仕組みも、作らずに済んだ。当たっても外れても、確かめたことで次の一手が決まった。</p>
+    </div>
+    <div class="card">
+      <h3>2. 集計の数字だけで判断しない。前後の表と、金額で見る</h3>
+      <p>補助科目の名前の表記を揃える処理（正規化）を、1日で5回直した。うち3回は、元の名前と揃えたあとの名前を並べた表を目で見て気づいた。集計の数字だけを見ていたら、気づかないまま結論を出していた。</p>
+      <p>件数では見えないものが、金額で見えたこともある。混ざっていた合計行と繰越行は、合わせて36行で、件数では誤差だった。金額で見ると47.6億円あった。「残っていていいか」は金額の問いなので、金額で見る。</p>
+    </div>
+    <div class="card">
+      <h3>3. AIが足したものを、人が承認してから残す</h3>
+      <p>会社の情報をAIに提案させ、人が承認してから記録する仕組みにした。最初の1件で、AIは渡していない比率を自分で計算して書き足してきた。計算は正しかったが、計算で出せる数字は記録に持たないと決めているので、承認の場で落とした。AIが足し、人が一部を落とす。承認があるから、その判断ができた。</p>
+    </div>
+    <div class="card">
+      <h3>4. 会社のAIへの指示は、条件を1つずつ足して件数を確かめる</h3>
+      <p>現場では自分のAIは使えない。使えるのは会社のAIだけ。会計システムに組み込まれたAIアシスタントに仕訳を探させたら、条件が2つ以上になると毎回どれか1つを黙って落とした。4回試して、4回とも違う条件が落ちた。0件が返っても、無いのか、読み違えたのか区別できない。</p>
+      <p>だから、会社のAIに指示を渡すときの形の候補を残した。条件は1つずつ足して、そのたびに件数を確かめる。0件が出たら条件を1つ外して、件数が戻るかを見る。</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-05">
+  <div class="sec-head"><span class="num">05</span><h2 id="h-05">苦戦したポイント</h2></div>
+  <p class="deck">器はあったのに、仕事を前に進める入口が無かった</p>
+  <div class="grid g2">
+    <div class="deadend">
+      <div class="de-n">詰まり 1</div>
+      <h3>作ったアプリで、仕事が回っていなかった</h3>
+      <p class="p-balance">アプリには、確かめることの一覧（未確認）、現場に持ち込む指示（持ち出し物）、相談できるAIが揃っていた。それでも実際の往復は、アプリの外のチャットで回っていた。数字を読み、次に何を測るかを決め、判定を書く。その全部がアプリの外にあった。制作は1週間止まった。</p>
+    </div>
+    <div class="deadend">
+      <div class="de-n">詰まり 2</div>
+      <h3>確かめることが多すぎて、どこから手を付けるか分からなくなった</h3>
+      <p>未確認のまま残っていたのは36件（会社全体18・CF14・未払金4）。やるべきことははっきりしていた。未払金の未消込残を特定する、仕訳の承認ルールを作る、CFの作成と分析を効率化する。それなのに、アプリを開いても、その3つにまっすぐ向かえなかった。</p>
+      <p>アプリが持っていたのは「分かっていないこと」の一覧だけだった。「どこまで行けば終わりか」「いまどこにいるか」「次に何をやるか」が無かった。</p>
+    </div>
+  </div>
+  <div class="sl mid">
+    <div class="sl-n">そこで</div>
+    <h3>現場に出た日に、入口を作り直した</h3>
+    <p>3つの悩みそれぞれに、終わりの条件と、そこまでの段を持たせた。いまの段は自分で選ぶ。どこまで進んだかは、人が判断することだから。次の一手は、アプリがいまの段の中から並べる。いまの段に関係ない未確認は出てこない。</p>
+    <p>未払金を開くと、次の一手は5件になった。同じ日の現場で開いた1件は、その中の1件にあたる。</p>
+  </div>
+</section>
+
+<section aria-labelledby="h-06">
+  <div class="sec-head"><span class="num">06</span><h2 id="h-06">まとめ</h2></div>
+  <div class="grid g2">
+    <div class="sum">
+      <h3>1. AIは設計側に回す</h3>
+      <p>自分のAIが入れない現場でも、使えなくなるわけではない。実データに触れる役は会社のAIとExcelに任せ、自分のAIは指示を組む側に回す。<mark>越境させるのは、指示だけでいい。</mark></p>
+    </div>
+    <div class="sum">
+      <h3>2. 記憶も仮説として置く</h3>
+      <p>当事者の記憶は、確かめる前はまだ答えではない。仮説として置き、実データで確かめる。<mark>当たっても外れても、次の一手が決まる。</mark></p>
+    </div>
+    <div class="sum">
+      <h3>3. 件数でなく金額で見る</h3>
+      <p>件数では誤差に見えるものが、金額では一番大きいことがある。<mark>「残っていていいか」は、金額の問い。</mark></p>
+    </div>
+    <div class="sum">
+      <h3>4. 道具には入口が要る</h3>
+      <p>確かめることの一覧を溜めても、仕事は前に進まなかった。<mark>終わりと、いまの位置が見えて、はじめて道具は回る。</mark></p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="https://fredemantha0109.github.io/ads-graduation-2026/" target="_blank" rel="noopener noreferrer">企画発表版の図解（2026年8月）</a></p>
+</footer>
+
+</div>
+</body>
+</html>
