@@ -36,28 +36,28 @@ section{
 .num{font-size:12px;font-weight:800;letter-spacing:.08em;background:var(--accent);color:#fff;padding:3px 9px;border-radius:5px;flex-shrink:0;}
 h2{font-size:19px;letter-spacing:-.01em;}
 .card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:15px 17px;}
-.card h3{font-size:15px;margin-bottom:6px;}
-.card p{font-size:13.5px;color:var(--ink-2);}
+.card h3{font-size:16px;margin-bottom:6px;}
+.card p{font-size:15px;color:var(--ink-2);}
 /* 02 症状 → 原因 */
   .symptom{background:var(--warn-soft);border:1px solid #f5c9c4;border-radius:10px;padding:17px 20px;}
-.symptom .sy-lbl{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.08em;margin-bottom:8px;}
-.symptom .sy-lead{font-size:14.5px;color:#7a1a13;line-height:1.7;margin-bottom:13px;}
+.symptom .sy-lbl{font-size:12px;font-weight:800;color:var(--warn);letter-spacing:.08em;margin-bottom:8px;}
+.symptom .sy-lead{font-size:15px;color:#7a1a13;line-height:1.7;margin-bottom:13px;}
 .sy-items{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:13px;}
 @media (max-width:900px){.sy-items{grid-template-columns:1fr;}}
 .sy-item{
     background:#fff;border:1px solid #eec4be;border-radius:8px;padding:11px 14px;
-    font-size:13.5px;font-weight:700;color:#8a3b33;text-align:center;line-height:1.45;
+    font-size:15px;font-weight:700;color:#8a3b33;text-align:center;line-height:1.45;
   }
 .sy-item.hot{background:var(--warn);border-color:var(--warn);color:#fff;}
-.sy-item .lv{display:block;font-size:10.5px;font-weight:800;letter-spacing:.08em;color:var(--ink-3);margin-bottom:4px;}
+.sy-item .lv{display:block;font-size:12px;font-weight:800;letter-spacing:.08em;color:var(--ink-3);margin-bottom:4px;}
 .sy-item.hot .lv{color:#ffd9d4;}
-.sy-item em{display:block;font-style:normal;font-size:11.5px;font-weight:500;margin-top:5px;color:#8f5f57;line-height:1.5;}
+.sy-item em{display:block;font-style:normal;font-size:13px;font-weight:500;margin-top:5px;color:#8f5f57;line-height:1.5;}
 .sy-item.hot em{color:#ffd9d4;}
 .sy-deep{
     background:#fff;border-left:3px solid var(--warn);border-radius:0 8px 8px 0;
-    padding:12px 16px;font-size:13.5px;color:#7a1a13;line-height:1.7;
+    padding:12px 16px;font-size:15px;color:#7a1a13;line-height:1.7;
   }
-.sy-deep .deep-t{font-size:13px;font-weight:800;color:var(--warn);margin-bottom:7px;letter-spacing:.02em;}
+.sy-deep .deep-t{font-size:16px;font-weight:800;color:var(--warn);margin-bottom:7px;letter-spacing:.02em;}
 .sy-deep p{margin-bottom:8px;}
 .sy-deep p:last-child{margin-bottom:0;}
 .sy-deep .punchline{
@@ -66,37 +66,39 @@ h2{font-size:19px;letter-spacing:-.01em;}
     padding:9px 0;border-top:1px dashed #e8a9a1;border-bottom:1px dashed #e8a9a1;
     margin:10px 0;text-align:center;
   }
-.cause-head{font-size:13px;font-weight:800;color:var(--ink-3);letter-spacing:.04em;margin-bottom:11px;padding-left:2px;}
+.cause-head{font-size:12px;font-weight:800;color:var(--ink-3);letter-spacing:.04em;margin-bottom:11px;padding-left:2px;}
 .cause{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;border-top:3px solid var(--warn);}
-.cause .cn{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.06em;margin-bottom:5px;}
-.cause h3{font-size:14px;margin-bottom:5px;line-height:1.45;}
-.cause p{font-size:12.5px;color:var(--ink-2);line-height:1.6;}
+.cause .cn{font-size:12px;font-weight:800;color:var(--warn);letter-spacing:.06em;margin-bottom:5px;}
+.cause h3{font-size:16px;margin-bottom:5px;line-height:1.45;}
+.cause p{font-size:15px;color:var(--ink-2);line-height:1.6;}
 /* 03 塞がった道 */
   .deadend{
     background:var(--warn-soft);border:1px solid #f5c9c4;border-radius:10px;
     padding:14px 16px;border-top:3px solid var(--warn);display:flex;flex-direction:column;
   }
-.deadend .de-n{font-size:11px;font-weight:800;color:var(--warn);letter-spacing:.06em;margin-bottom:5px;}
-.deadend h3{font-size:14px;margin-bottom:7px;line-height:1.4;color:#7a1a13;}
-.deadend p{font-size:12.5px;color:#8a3b33;line-height:1.6;}
+.deadend .de-n{font-size:12px;font-weight:800;color:var(--warn);letter-spacing:.06em;margin-bottom:5px;}
+.deadend h3{font-size:16px;margin-bottom:7px;line-height:1.4;color:#7a1a13;}
+.deadend p{font-size:15px;color:#8a3b33;line-height:1.6;}
 /* 05 補足 */
-  .slim{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;margin-bottom:14px;}
+  .slim{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;}
 @media (max-width:1000px){.slim{grid-template-columns:1fr;}}
 .sl{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:15px 17px;}
 .sl.mid{background:var(--accent-soft);border-color:#c3d6f7;}
-.sl .sl-n{font-size:13px;font-weight:800;margin-bottom:6px;color:var(--ink);}
+.sl .sl-n{font-size:12px;font-weight:800;margin-bottom:6px;color:var(--ink);}
 .sl.mid .sl-n{color:var(--accent);}
-.sl p{font-size:12.5px;color:var(--ink-2);line-height:1.6;}
-.sl-arrow{display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:18px;}
+.sl p{font-size:15px;color:var(--ink-2);line-height:1.6;}
+.sl-arrow{display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:17px;}
 @media (max-width:1000px){.sl-arrow .ar{display:inline-block;transform:rotate(90deg);}}
-footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
+footer{text-align:center;font-size:13px;color:var(--ink-2);margin-top:24px;}
 
   /* ── ここから、この図解で足したぶん ── */
 
   /* 地の文の行長キャップ（42em）。日本語は35〜45字/行で読める */
-  .lead{font-size:15.5px;color:var(--ink-2);max-width:42em;margin-top:10px;line-height:1.75;}
-  .prose{font-size:14px;line-height:1.9;color:var(--ink-2);max-width:42em;margin-bottom:12px;}
-  .prose:last-child{margin-bottom:0;}
+  .lead{font-size:15px;color:var(--ink-2);max-width:42em;margin-top:10px;line-height:1.75;}
+  /* 塊と塊の間は1つの値（16px）に揃える。節の最後の塊だけ0に戻す */
+  .symptom, .stack, .grid, .slim, .shot, .tree, .deck, .prose{margin-bottom:16px;}
+  section > :last-child{margin-bottom:0;}
+  .prose{font-size:15px;line-height:1.9;color:var(--ink-2);max-width:42em;}
   ul.prose{padding-left:1.2em;}
   ul.prose li{margin-bottom:6px;}
   ul.prose li:last-child{margin-bottom:0;}
@@ -105,54 +107,43 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
   /* 全幅で流れる地の文にも同じ行長キャップをかける（日本語で42字/行）*/
   .symptom .sy-lead, .sy-deep p{max-width:42em;}
 
-  /* 上限が効いて余った幅は、左右に均等に散らす。
-     右だけ空くと「入れ忘れ」に見えるため。上限そのものは変えない。
-     2列に並ぶカードの中身（.card p / .sum p / .deadend p / .cause p）と
-     見出し・写真・数字の木は、箱の幅で決まっているので対象外。 */
-  /* 上限が効いて余った幅は、箱の中では左右に均等に散らす。右だけ空くと
-     「入れ忘れ」に見えるため。上限そのものは変えない。
-     枠のある箱の中（01 の症状・言い切り、05 の「そこで」）だけに効かせる。
-     ヘッダーのリードと地の文は、見出しと左端を揃えたいので左寄せのまま。 */
-  .symptom .sy-lead, .sy-deep p, .sl p{margin-inline:auto;}
   /* 700〜900px でグリッドが1列に落ちると、カードの中の文も全幅で流れる */
   .deadend p, .cause p, .card p, .sum p{max-width:42em;}
   /* ここだけ44em。42emだと最終行が3字になる */
   .sl p{max-width:44em;}
   /* 段落どうしの間。.sy-deep p と同じ値に揃える */
   .card p + p, .deadend p + p, .sl p + p{margin-top:8px;}
-  /* まとめの本文と、詰まり1は最終行が短くなるので、行の長さを均す */
-  .sum p, .p-balance{text-wrap:balance;}
   .br-wide{display:none;}
   @media (min-width:700px){.br-wide{display:inline;}}
 
   /* 2枚＋矢印1つ。列の数だけ .slim を変える */
   /* 2枚＋矢印。狭い画面は .slim の1列指定に任せるので、広いときだけ効かせる */
-  @media (min-width:1001px){.slim--duo{grid-template-columns:1fr 14em 1fr;}}
+  @media (min-width:1001px){.slim--duo{grid-template-columns:1fr 16em 1fr;}}
   .slim--duo .sl-arrow{flex-direction:column;gap:6px;}
-  .slim--duo .sl-arrow .lbl{font-size:11.5px;color:var(--ink-2);text-align:center;line-height:1.5;}
-  /* ラベルは15字と17字。1行に収まる幅を確保する（11.5px × 17.5em ≒ 201px）*/
+  .slim--duo .sl-arrow .lbl{font-size:13px;color:var(--ink-2);text-align:center;line-height:1.5;}
+  /* ラベルは15字と17字。1行に収まる幅を確保する（13px × 17.5em ≒ 228px）*/
   @media (min-width:1001px){.slim--duo .sl-arrow .lbl{max-width:17.5em;}}
   /* 越境の境目。線そのものに色を持たせ、箱は無彩色に戻す */
   @media (min-width:1001px){.slim--duo .sl-arrow{border-left:3px dashed var(--accent);padding-left:14px;}}
   @media (max-width:1000px){.slim--duo .sl-arrow{border-top:3px dashed var(--accent);padding-top:10px;}}
-  .sl h3{font-size:14px;margin:0 0 7px;color:var(--accent);line-height:1.45;}
+  .sl h3{font-size:16px;margin:0 0 7px;color:var(--accent);line-height:1.45;}
 
   /* 画面の写真。押すと原寸で開く */
-  .shot{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--card);margin-bottom:14px;}
+  .shot{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--card);}
   .shot img{display:block;width:100%;height:auto;border-radius:6px;}
   .shot--narrow img{max-width:320px;margin:0 auto;}
-  .shot figcaption{font-size:12px;color:var(--ink-3);margin-top:8px;text-align:center;}
+  .shot figcaption{font-size:13px;color:var(--ink-2);margin-top:8px;text-align:center;}
 
   /* 数字の木。内訳は字下げ、数値は右寄せ。注記は深さによらず同じ位置から */
   .tree{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;max-width:42em;}
-  .tree .tr{display:flex;align-items:baseline;gap:10px;padding:3px 0;font-size:13.5px;color:var(--ink);}
+  .tree .tr{display:flex;align-items:baseline;gap:10px;padding:3px 0;font-size:15px;color:var(--ink);}
   .tree .tr-l{flex:1;min-width:0;line-height:1.6;}
   .tree .tr-v{font-variant-numeric:tabular-nums;font-weight:700;text-align:right;}
-  .tree .tr-u{font-size:11.5px;color:var(--ink-2);width:2.4em;}
+  .tree .tr-u{font-size:13px;color:var(--ink-2);width:2.4em;}
   .tree .tr.d1{padding-left:18px;border-left:1px solid var(--ink-3);margin-left:6px;}
   .tree .tr.d2{padding-left:18px;border-left:1px solid var(--ink-3);margin-left:30px;}
   /* 地が bg のとき ink-3 は 4.25:1 で基準に届かないので、ここだけ ink-2 にする */
-  .tree .tr-note{font-size:11.5px;color:var(--ink-2);line-height:1.6;}
+  .tree .tr-note{font-size:13px;color:var(--ink-2);line-height:1.6;}
   .tree .tr-note.n1{padding-left:24px;}
   .tree .tr-note.n2{padding-left:48px;}
   /* 括弧や短い句を、途中で折り返させないための印 */
@@ -162,8 +153,8 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
 
   /* まとめ。mark は1枚に1か所だけ */
   .sum{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:15px 17px;}
-  .sum h3{font-size:15px;margin-bottom:6px;}
-  .sum p{font-size:13.5px;color:var(--ink-2);}
+  .sum h3{font-size:16px;margin-bottom:6px;}
+  .sum p{font-size:15px;color:var(--ink-2);}
   .sum mark{background:var(--accent-soft);color:var(--ink);font-weight:700;padding:1px 4px;border-radius:3px;}
 
   /* 節の中の小見出し（カードの中の h3 には当てない） */
@@ -171,7 +162,7 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
   section > h3:first-of-type{margin-top:6px;}
 
   /* 節の主張の1行（原本で「見出し：」だった文） */
-  .deck{font-size:15.5px;font-weight:700;color:var(--ink);max-width:42em;line-height:1.75;margin-bottom:14px;}
+  .deck{font-size:17px;font-weight:700;color:var(--ink);max-width:42em;line-height:1.75;}
 
   /* まとめのオチは、カードの最終行に独立させる */
   .sum{border-left:3px solid var(--accent);}
@@ -179,12 +170,53 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
 
   /* 原因の積み重なり。列の間に「＋」を置く */
   .stack{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch;}
-  .stack .plus{display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:var(--ink-3);}
+  .stack .plus{display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:700;color:var(--ink-3);}
   @media (max-width:900px){.stack{grid-template-columns:1fr;}}
 
   /* デモへの導線。1ページに1つだけ */
-  .cta{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:14px;
+  .cta{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:15px;
        padding:10px 18px;border-radius:8px;text-decoration:none;margin-top:14px;}
+
+  /* 写真の上に番号の丸を重ねる。位置は画像に対する %（幅が変わってもずれない）。
+     切り抜きは2倍で撮ってあり、表示は半分の幅（768px）でほぼ等倍になる */
+  .pin{display:block;position:relative;max-width:768px;margin:0 auto;}
+  .pin--entrance{max-width:756px;}
+  /* 狭い画面で縮めると、行の間隔より丸のほうが大きくなって重なる。
+     写真は等倍のまま、枠の中だけ横に送れるようにする（ページは横にずれない） */
+  @media (max-width:700px){
+    .shot--pin{overflow-x:auto;}
+    .shot--pin .pin{max-width:none;}
+    .shot--pin .pin--entrance{width:756px;}
+    .shot--pin .pin--track{width:768px;}
+    .shot--pin figcaption{position:sticky;left:0;}
+    .shot--pin .scroll-hint{display:block;}
+  }
+  /* 写真が枠より広くなる幅でだけ出す注記。広い画面では消す */
+  .scroll-hint{display:none;font-size:13px;color:var(--ink-2);margin-top:4px;text-align:center;position:sticky;left:0;}
+  .pin .mk{position:absolute;transform:translate(-50%,-50%);width:max(18px,2.9%);aspect-ratio:1;border-radius:50%;
+       background:var(--accent);color:#fff;font-size:12px;font-weight:800;line-height:1;
+       display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;}
+  .pin--entrance .m1{left:1.6%;top:40.8%;}
+  .pin--entrance .m2{left:1.6%;top:60%;}
+  .pin--entrance .m3{left:1.6%;top:76.2%;}
+  .pin--track .m1{left:1.6%;top:17.9%;}
+  .pin--track .m2{left:1.6%;top:23.9%;}
+  .pin--track .m3{left:1.6%;top:43.9%;}
+  .pin--track .m4{left:1.6%;top:79.1%;}
+
+  /* 写真の番号と、その説明。番号の丸は写真の上のものと同じ見た目 */
+  .legend{list-style:none;max-width:42em;margin-bottom:16px;}
+  .legend li{display:flex;gap:10px;font-size:15px;line-height:1.9;color:var(--ink-2);}
+  .legend li + li{margin-top:6px;}
+  .legend .mk{flex:0 0 auto;width:20px;height:20px;margin-top:6px;border-radius:50%;background:var(--accent);color:#fff;
+       font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums;}
+  .legend b{color:var(--ink);}
+
+  /* 工夫の数字。カードの中で、文と置き換えた数字だけを大きく出す */
+  .stat{margin:10px 0;padding:10px 14px;background:var(--card);border:1px solid var(--line);border-radius:8px;max-width:42em;}
+  .stat-n{font-size:29px;font-weight:800;color:var(--ink);line-height:1.25;font-variant-numeric:tabular-nums;}
+  .stat-d{font-size:15px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .stat-l{font-size:13px;color:var(--ink-2);margin-top:2px;}
 
   footer a{color:var(--accent);}</style>
 </head>
@@ -206,7 +238,7 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
     <div class="sy-items">
       <div class="sy-item"><span class="lv">検査</span>数字が合っているかを確認する<em>ルールで判定できる。</em></div>
       <div class="sy-item"><span class="lv">検査</span>異常な残高がないかを確認する<em>マイナスの残高など、条件で拾える。</em></div>
-      <div class="sy-item hot"><span class="lv">究明</span>補助科目別に見たときの不整合を突き止める<em>総額も取引先別も合う。合わないのは補助科目別だけ。明細を遡っても、入り繰りがあるので突合できない。</em></div>
+      <div class="sy-item hot"><span class="lv">究明</span>補助科目別に見たときの不整合を突き止める<em>合わないのは補助科目別だけ。</em></div>
     </div>
     <div class="sy-deep">
       <div class="deep-t">とくに重いのが最後です。</div>
@@ -233,28 +265,13 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
     <div class="cause">
       <div class="cn">原因 3</div>
       <h3>入口だけDXした</h3>
-      <p>請求書の自動読込、SaaS連携。効率化はした。でも整っていない土台にそのまま繋いだので、複雑さが増して手が付けられなくなりました。</p>
+      <p>請求書の自動読込、SaaS連携。効率化はした。でも整っていない土台にそのまま繋いだので、複雑さが増して手が<span class="nb">付けられなくなりました。</span></p>
     </div>
   </div>
 
   <p class="prose">会計システムだけが整理されていないから、他のシステムと突合できない。<br class="br-wide">DXが言われた時代からずっと、ここが詰まっていました。</p>
 
-  <p class="prose">ここまでは、現場に入る前から分かっていたことです。<br class="br-wide">実際に現場へ行くと、続きがありました。</p>
 
-  <div class="grid g2">
-    <div class="deadend">
-      <div class="de-n">壁 1</div>
-      <h3>自分のAIを持ち込めない</h3>
-      <p>会社が用意したAIはあっても、機能が限られていることが多い。積み上げてきたやり方が、一番使いたい場所で使えません。</p>
-    </div>
-    <div class="deadend">
-      <div class="de-n">壁 2</div>
-      <h3>実データを持ち出せない</h3>
-      <p>手元に持ち帰って解析する、ができない。見られるのは、その会社のPCの中だけです。</p>
-    </div>
-  </div>
-
-  <p class="prose">道具を持たずに現場へ行く、という状態でした。</p>
 </section>
 
 <section aria-labelledby="h-02">
@@ -267,6 +284,20 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
 <section aria-labelledby="h-03">
   <div class="sec-head"><span class="num">03</span><h2 id="h-03">作ったもの</h2></div>
   <p class="deck">自分のAIが使えない現場で、経理が自分で会計システムの中を調べるための「設計側」の道具</p>
+
+  <div class="cause-head">現場の壁</div>
+  <div class="grid g2">
+    <div class="deadend">
+      <div class="de-n">壁 1</div>
+      <h3>自分のAIを持ち込めない</h3>
+      <p>会社が用意したAIはあっても、機能が限られていることが多い。積み上げてきたやり方が、一番使いたい場所で使えません。</p>
+    </div>
+    <div class="deadend">
+      <div class="de-n">壁 2</div>
+      <h3>実データを持ち出せない</h3>
+      <p>手元に持ち帰って解析する、ができない。見られるのは、その会社の<span class="nb">PCの中だけです。</span></p>
+    </div>
+  </div>
 
   <h3>1. 全体の形</h3>
   <div class="slim slim--duo">
@@ -283,32 +314,41 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
       <p>実行する側<br>実データに触れる<br>会社が許可したAIだけが読む</p>
     </div>
   </div>
-  <p class="prose">実データは持ち出せず、自分のAIも使えない。だから、実データに触れずに済む「設計する側」を自分の手元に作った。会社のPCに持ち込むのは、貼るだけで動く指示（<span class="nb">Power Query</span>、VBA、数式、会社のAIへの指示文）だけ。</p>
+  <p class="prose">会社のPCに持ち込むのは、貼るだけで動く指示（<span class="nb">Power Query</span>、VBA、数式、会社のAIへの指示文）だけ。</p>
 
   <h3>2. 会社を開くと、悩みごとの入口が並ぶ</h3>
-  <p class="prose">1つの会社に、悩みごとの入口を並べる。今回の会社では3つ。未払金の未消込残を特定する、仕訳の承認ルールを作る、CFの作成と分析を効率化する。</p>
+  <p class="prose">1つの会社に、悩みごとの入口（画面では「切り口」）を並べる。今回の会社では3つ。未払金の未消込残を特定する、仕訳の承認ルールを作る、CFの作成と分析を効率化する。</p>
   <p class="prose">入口にはそれぞれ、終わりの条件、いまの段、次の一手が出る。どの悩みから手を付けるかは現場次第なので、どこからでも入れる形にした。</p>
   <p class="prose">写真はすべて架空のデモの会社です。</p>
-  <figure class="shot">
-    <a href="img/dashboard.png" target="_blank" rel="noopener noreferrer">
-      <img src="img/dashboard.png" width="2560" height="1650" loading="lazy" alt="会社のダッシュボード。悩みごとの入口が縦に並び、それぞれに終わりの条件・いまの段・次の一手が出ている">
+  <figure class="shot shot--pin">
+    <a class="pin pin--entrance" href="img/dashboard.png" target="_blank" rel="noopener noreferrer">
+      <img src="img/entrance.png" width="756" height="161" loading="lazy" alt="入口のカード1枚。1 終わりの条件、2 段の丸といまの段、3 次の一手">
+      <span class="mk m1" aria-hidden="true">1</span>
+      <span class="mk m2" aria-hidden="true">2</span>
+      <span class="mk m3" aria-hidden="true">3</span>
     </a>
     <figcaption>会社のダッシュボード（押すと原寸で開く）</figcaption>
+    <p class="scroll-hint">写真は横にスクロールできます</p>
   </figure>
 
   <h3>3. 入口の中で、確かめることと、持ち込む指示が溜まっていく</h3>
-  <ul class="prose">
-    <li><b>段</b>：終わりまでの道のりを段に分ける。いまの段は人が選ぶ</li>
-    <li><b>次の一手</b>：いまの段の中で、まだ確かめていないことと、まだ回していない指示を、アプリが並べる</li>
-    <li><b>未確認のこと</b>：自分の記憶も含めて、確かめる前はすべて仮説として置く。確かめたら「確認」か「記憶と違った」に変わる。外れた記録も消さない</li>
-    <li><b>持ち出し物</b>：会社のPCに貼る指示の本体と、その実行の記録。失敗した記録も残し、次の指示の材料にする</li>
-  </ul>
-  <figure class="shot">
-    <a href="img/track.png" target="_blank" rel="noopener noreferrer">
-      <img src="img/track.png" width="2560" height="1350" loading="lazy" alt="切り口の詳細。終わりの条件、段の列、次の一手、持ち出し物が縦に並んでいる">
+  <figure class="shot shot--pin">
+    <a class="pin pin--track" href="img/track.png" target="_blank" rel="noopener noreferrer">
+      <img src="img/track-top.png" width="768" height="872" loading="lazy" alt="入口の中。1 段の列、2 次の一手、3 持ち出し物、4 確認済みになった未確認のこと">
+      <span class="mk m1" aria-hidden="true">1</span>
+      <span class="mk m2" aria-hidden="true">2</span>
+      <span class="mk m3" aria-hidden="true">3</span>
+      <span class="mk m4" aria-hidden="true">4</span>
     </a>
-    <figcaption>切り口の詳細（押すと原寸で開く）</figcaption>
+    <figcaption>入口の中（画面では切り口の詳細）（押すと原寸で開く）</figcaption>
+    <p class="scroll-hint">写真は横にスクロールできます</p>
   </figure>
+  <ol class="legend">
+    <li><span class="mk" aria-hidden="true">1</span><span><b>段</b>：終わりまでの道のりを段に分ける。いまの段は人が選ぶ</span></li>
+    <li><span class="mk" aria-hidden="true">2</span><span><b>次の一手</b>：いまの段の中で、まだ確かめていないことと、まだ回していない<span class="nb">指示を、アプリが並べる</span></span></li>
+    <li><span class="mk" aria-hidden="true">3</span><span><b>持ち出し物</b>：会社のPCに貼る指示の本体と、その実行の記録。失敗した記録も残し、次の指示の材料にする</span></li>
+    <li><span class="mk" aria-hidden="true">4</span><span><b>未確認のこと</b>：自分の記憶も含めて、確かめる前はすべて仮説として置く。確かめたら「確認」か「記憶と違った」に変わる。外れた記録も消さない</span></li>
+  </ol>
 
   <h3>4. 越境のルールを知っているAIに相談できる</h3>
   <p class="prose">画面の右に、会社の前提と「何を持ち出してよいか」のルールを知ったAIがいる。相談すると、新しい切り口や指示を提案してくる。提案はそのまま登録されず、人が下書きを直してから登録する。</p>
@@ -342,22 +382,37 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
     <div class="card">
       <h3>1. 自分の記憶も「仮説」として置いた</h3>
       <p>経理の当事者として、「見て見ぬふりの1つ目は『その他』の欄だ」と覚えていた。それを答えとして書かず、確かめる前の仮説としてアプリに置いた。</p>
-      <p>あとから別々の日に、別々の切り口で、実データが裏付けた。消し込みの1段目を回すと、残った3,899件のうち2,819件（72%）が「その他」だった。</p>
+      <p>あとから別々の日に、別々の切り口で、実データが裏付けた。</p>
+      <div class="stat">
+        <div class="stat-n">72%</div>
+        <div class="stat-d">3,899件中 2,819件</div>
+        <div class="stat-l">消し込みの1段目で残った件数のうち「その他」</div>
+      </div>
       <p>逆に、記憶が外れたこともある。「繰越は仕訳の中にある」「取引先コードが空欄の行は多い」は、どちらも実データで外れた。おかげで、明細を前後に切るクエリも、空欄を分類する仕組みも、作らずに済んだ。当たっても外れても、確かめたことで次の一手が決まった。</p>
     </div>
     <div class="card">
       <h3>2. 集計の数字だけで判断しない。前後の表と、金額で見る</h3>
       <p>補助科目の名前の表記を揃える処理（正規化）を、1日で5回直した。うち3回は、元の名前と揃えたあとの名前を並べた表を目で見て気づいた。集計の数字だけを見ていたら、気づかないまま結論を出していた。</p>
-      <p>件数では見えないものが、金額で見えたこともある。混ざっていた合計行と繰越行は、合わせて36行で、件数では誤差だった。金額で見ると47.6億円あった。「残っていていいか」は金額の問いなので、金額で見る。</p>
+      <p>件数では見えないものが、金額で見えたこともある。</p>
+      <div class="stat">
+        <div class="stat-n">36行 → 47.6億円</div>
+        <div class="stat-l">合計行と繰越行。件数では誤差、金額では</div>
+      </div>
+      <p>「残っていていいか」は金額の問いなので、金額で見る。</p>
     </div>
     <div class="card">
       <h3>3. AIが足したものを、人が承認してから残す</h3>
-      <p>会社の情報をAIに提案させ、人が承認してから記録する仕組みにした。最初の1件で、AIは渡していない比率を自分で計算して書き足してきた。計算は正しかったが、計算で出せる数字は記録に持たないと決めているので、承認の場で落とした。AIが足し、人が一部を落とす。承認があるから、その判断ができた。</p>
+      <p>会社の情報をAIに提案させ、人が承認してから記録する仕組みにした。最初の1件で、AIは渡していない比率を自分で計算して書き足してきた。計算は正しかったが、計算で出せる数字は記録に持たないと決めているので、承認の場で落とした。</p>
     </div>
     <div class="card">
       <h3>4. 会社のAIへの指示は、条件を1つずつ足して件数を確かめる</h3>
-      <p>現場では自分のAIは使えない。使えるのは会社のAIだけ。会計システムに組み込まれたAIアシスタントに仕訳を探させたら、条件が2つ以上になると毎回どれか1つを黙って落とした。4回試して、4回とも違う条件が落ちた。0件が返っても、無いのか、読み違えたのか区別できない。</p>
-      <p>だから、会社のAIに指示を渡すときの形の候補を残した。条件は1つずつ足して、そのたびに件数を確かめる。0件が出たら条件を1つ外して、件数が戻るかを見る。</p>
+      <p>会計システムに組み込まれたAIアシスタントに仕訳を探させたら、条件が2つ以上になると毎回どれか1つを黙って落とした。</p>
+      <div class="stat">
+        <div class="stat-n">4回中4回</div>
+        <div class="stat-l">違う条件が落ちた</div>
+      </div>
+      <p>0件が返っても、無いのか、読み違えた<span class="nb">のか区別できない。</span></p>
+      <p>だから、会社のAIに指示を渡すときの形の候補を残した。条件は1つずつ<span class="nb">足して、</span>そのたびに件数を確かめる。0件が出たら条件を1つ<span class="nb">外して、件数が戻るかを見る。</span></p>
     </div>
   </div>
 </section>
@@ -369,7 +424,7 @@ footer{text-align:center;font-size:12px;color:var(--ink-2);margin-top:24px;}
     <div class="deadend">
       <div class="de-n">詰まり 1</div>
       <h3>作ったアプリで、仕事が回っていなかった</h3>
-      <p class="p-balance">アプリには、確かめることの一覧（未確認）、現場に持ち込む指示（持ち出し物）、相談できるAIが揃っていた。それでも実際の往復は、アプリの外のチャットで回っていた。数字を読み、次に何を測るかを決め、判定を書く。その全部がアプリの外にあった。制作は1週間止まった。</p>
+      <p>アプリには、確かめることの一覧（未確認）、現場に持ち込む指示（持ち出し物）、相談できるAIが揃っていた。それでも実際の往復は、アプリの外のチャットで回っていた。数字を読み、次に何を測るかを決め、判定を書く。その全部がアプリの外にあった。<span class="nb">制作は1週間止まった。</span></p>
     </div>
     <div class="deadend">
       <div class="de-n">詰まり 2</div>
