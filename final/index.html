@@ -93,24 +93,18 @@ footer{text-align:center;font-size:13px;color:var(--ink-2);margin-top:24px;}
 
   /* ── ここから、この図解で足したぶん ── */
 
-  /* 地の文の行長キャップ（42em）。日本語は35〜45字/行で読める */
-  .lead{font-size:15px;color:var(--ink-2);max-width:42em;margin-top:10px;line-height:1.75;}
+  /* 行長の上限は外した（2026-09-23）。右が空いて見えるのを避けることを優先した本人の判断。
+     日本語の可読域（35〜45字/行）より、版面の埋まりを取っている。数字の木と節の主張の1行は上限を残す */
+  .lead{font-size:15px;color:var(--ink-2);margin-top:10px;line-height:1.75;}
   /* 塊と塊の間は1つの値（16px）に揃える。節の最後の塊だけ0に戻す */
   .symptom, .stack, .grid, .slim, .shot, .tree, .deck, .prose{margin-bottom:16px;}
   section > :last-child{margin-bottom:0;}
-  .prose{font-size:15px;line-height:1.9;color:var(--ink-2);max-width:42em;}
+  .prose{font-size:15px;line-height:1.9;color:var(--ink-2);}
   ul.prose{padding-left:1.2em;}
   ul.prose li{margin-bottom:6px;}
   ul.prose li:last-child{margin-bottom:0;}
   .prose b{color:var(--ink);}
   p, li, figcaption{text-wrap:pretty;}
-  /* 全幅で流れる地の文にも同じ行長キャップをかける（日本語で42字/行）*/
-  .symptom .sy-lead, .sy-deep p{max-width:42em;}
-
-  /* 700〜900px でグリッドが1列に落ちると、カードの中の文も全幅で流れる */
-  .deadend p, .cause p, .card p, .sum p{max-width:42em;}
-  /* ここだけ44em。42emだと最終行が3字になる */
-  .sl p{max-width:44em;}
   /* 段落どうしの間。.sy-deep p と同じ値に揃える */
   .card p + p, .deadend p + p, .sl p + p{margin-top:8px;}
   .br-wide{display:none;}
@@ -205,7 +199,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-2);margin-top:24px;}
   .pin--track .m4{left:1.6%;top:79.1%;}
 
   /* 写真の番号と、その説明。番号の丸は写真の上のものと同じ見た目 */
-  .legend{list-style:none;max-width:42em;margin-bottom:16px;}
+  .legend{list-style:none;margin-bottom:16px;}
   .legend li{display:flex;gap:10px;font-size:15px;line-height:1.9;color:var(--ink-2);}
   .legend li + li{margin-top:6px;}
   .legend .mk{flex:0 0 auto;width:20px;height:20px;margin-top:6px;border-radius:50%;background:var(--accent);color:#fff;
@@ -226,7 +220,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-2);margin-top:24px;}
 <header>
   <div class="eyebrow">ADS 卒業制作</div>
   <h1>クライアントのデータに触れずに、自分のAIを使い切る</h1>
-  <p class="lead">クライアントのPCでは、自分のAIは使えない。実データも持ち出せない。だから自分のAIは設計する側に回し、現場には指示だけを渡す。そのための道具「Whitebox」を作り、5社が<span class="nb">2段階</span>で合併し、複雑化した会社の未払金残高で回した。</p>
+  <p class="lead">クライアントのPCでは、自分のAIは使えない。実データも持ち出せない。だから自分のAIは設計する側に回し、現場には指示だけを渡す。そのための道具「Whitebox」を作り、5社が<span class="nb">2段階</span>で合併し、複雑化した会社の<span class="nb">未払金残高で回した。</span></p>
 </header>
 
 <section aria-labelledby="h-01">
@@ -242,7 +236,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-2);margin-top:24px;}
     </div>
     <div class="sy-deep">
       <div class="deep-t">とくに重いのが最後です。</div>
-      <p>未払金の総額は合っています。取引先別で見ても合っています。合わないのは、補助科目別に見たときだけです。会計上は正しいので、これまで見送られてきました。</p>
+      <p>未払金の総額は合っています。取引先別で見ても合っています。合わないのは、補助科目別に見たときだけです。会計上は正しいので、これまで<span class="nb">見送られてきました。</span></p>
       <p>補助科目で明細を遡っても、突合できません。合併のたびに各社の補助科目が混ざったまま持ち込まれ、起票のときにどの補助科目を使うかのルールも決まっていないので、同じ性質の取引が別々の補助科目に入っています。相殺されて消えていく中に、何年も前の1件だけが、なぜか残っている。それを見つけるまでに、何十往復もします。</p>
       <p class="punchline">決算は締まります。だから、補助科目の中身だけが、誰にも究明されないまま残ります。</p>
     </div>
@@ -253,7 +247,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-2);margin-top:24px;}
     <div class="cause">
       <div class="cn">原因 1</div>
       <h3>過去が、そのまま堆積している</h3>
-      <p>会計システムはどの会社にも昔からあります。手入力の時代のデータがそのまま残り、さらに合併のたびに、時間がない中で複数のシステムを無理やり統合する。不要なデータが残ったまま集約され、取引先の情報が入り混じります。</p>
+      <p>会計システムはどの会社にも昔からあります。手入力の時代のデータがそのまま残り、さらに合併のたびに、時間がない中で複数のシステムを無理やり統合する。不要なデータが残ったまま集約され、取引先の情報が<span class="nb">入り混じります。</span></p>
     </div>
     <div class="plus" aria-hidden="true">＋</div>
     <div class="cause">
@@ -278,7 +272,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-2);margin-top:24px;}
   <div class="sec-head"><span class="num">02</span><h2 id="h-02">作りたいと思った理由</h2></div>
   <p class="prose">8月のグループセッションで一番刺さったのは、メンバーの視座の高さだった。面倒ごとがたくさんあって、あれもこれも直したいという強い気持ち。それは自分にも共通する。ただ自分は、忙しさの中で後回しにしてしまうことがある。</p>
   <p class="prose">この「後回し」は、会計システムの汚れが積み上がるのと同じ形をしている。最終成果物としては間違っていない。誰のミスでもないし、緊急でもない。だから見て見ぬふりのまま、<span class="nb">10年</span>積み上がる。</p>
-  <p class="prose">その仕組みを内側から知っているから、それに対抗する道具が作れる。そして半年前の自分には、それを作る手段がなかった。</p>
+  <p class="prose">その仕組みを内側から知っているから、それに対抗する道具が作れる。そして半年前の自分には、それを作る<span class="nb">手段がなかった。</span></p>
 </section>
 
 <section aria-labelledby="h-03">
@@ -290,7 +284,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-2);margin-top:24px;}
     <div class="deadend">
       <div class="de-n">壁 1</div>
       <h3>自分のAIを持ち込めない</h3>
-      <p>会社が用意したAIはあっても、機能が限られていることが多い。積み上げてきたやり方が、一番使いたい場所で使えません。</p>
+      <p>会社が用意したAIはあっても、機能が限られていることが多い。積み上げてきたやり方が、一番使いたい<span class="nb">場所で使えません。</span></p>
     </div>
     <div class="deadend">
       <div class="de-n">壁 2</div>
@@ -317,7 +311,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-2);margin-top:24px;}
   <p class="prose">会社のPCに持ち込むのは、貼るだけで動く指示（<span class="nb">Power Query</span>、VBA、数式、会社のAIへの指示文）だけ。</p>
 
   <h3>2. 会社を開くと、悩みごとの入口が並ぶ</h3>
-  <p class="prose">1つの会社に、悩みごとの入口（画面では「切り口」）を並べる。今回の会社では3つ。未払金の未消込残を特定する、仕訳の承認ルールを作る、CFの作成と分析を効率化する。</p>
+  <p class="prose">1つの会社に、悩みごとの入口（画面では「切り口」）を並べる。今回の会社では3つ。未払金の未消込残を特定する、仕訳の承認ルールを作る、CFの<span class="nb">作成と分析を効率化する。</span></p>
   <p class="prose">入口にはそれぞれ、終わりの条件、いまの段、次の一手が出る。どの悩みから手を付けるかは現場次第なので、どこからでも入れる形にした。</p>
   <p class="prose">写真はすべて架空のデモの会社です。</p>
   <figure class="shot shot--pin">
@@ -406,7 +400,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-2);margin-top:24px;}
     </div>
     <div class="card">
       <h3>4. 会社のAIへの指示は、条件を1つずつ足して件数を確かめる</h3>
-      <p>会計システムに組み込まれたAIアシスタントに仕訳を探させたら、条件が2つ以上になると毎回どれか1つを黙って落とした。</p>
+      <p>会計システムに組み込まれたAIアシスタントに仕訳を探させたら、条件が2つ以上になると毎回どれか1つを<span class="nb">黙って落とした。</span></p>
       <div class="stat">
         <div class="stat-n">4回中4回</div>
         <div class="stat-l">違う条件が落ちた</div>
@@ -436,7 +430,7 @@ footer{text-align:center;font-size:13px;color:var(--ink-2);margin-top:24px;}
   <div class="sl mid">
     <div class="sl-n">そこで</div>
     <h3>現場に出た日に、入口を作り直した</h3>
-    <p>3つの悩みそれぞれに、終わりの条件と、そこまでの段を持たせた。いまの段は自分で選ぶ。どこまで進んだかは、人が判断することだから。次の一手は、アプリがいまの段の中から並べる。いまの段に関係ない未確認は出てこない。</p>
+    <p>3つの悩みそれぞれに、終わりの条件と、そこまでの段を持たせた。いまの段は自分で選ぶ。どこまで進んだかは、人が判断することだから。次の一手は、アプリがいまの段の中から並べる。いまの段に関係ない<span class="nb">未確認は出てこない。</span></p>
     <p>未払金を開くと、次の一手は5件になった。同じ日の現場で開いた1件は、その中の1件にあたる。</p>
   </div>
 </section>
